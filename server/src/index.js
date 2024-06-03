@@ -1,3 +1,4 @@
+import os from "os";
 import express from "express";
 
 import dotenv from "dotenv";
@@ -45,6 +46,10 @@ app.use("/kelompok", kelompokRoutes);
 /* ======================================
  ** ========= Server connection =========
  ** ===================================== */
+// prettier-ignore
+const ipAddress = os.networkInterfaces()['Wi-Fi'].find(i => i.family === "IPv4").address;
+
+app.listen(PORT, ipAddress, () => {});
 app.listen(PORT, async () => {
   try {
     /* === Connect to Database === */
@@ -56,6 +61,7 @@ app.listen(PORT, async () => {
       `=== Welcome to Kompetisi Together ===\n======   Server Development    ======`
     );
     console.log(`\nServer\t : \x1b[4m%s\x1b[0m`, `http://localhost:${PORT}`);
+    console.log(`Network\t : \x1b[4m%s\x1b[0m`, `http://${ipAddress}:${PORT}`);
     console.log(`Database : \x1b[32m%s\x1b[0m`, "https://" + connection.host);
     console.log("\nEnjoy developing!");
   } catch (error) {
