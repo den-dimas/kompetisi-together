@@ -8,7 +8,7 @@ export const APIResponse = (res, code, result, message) =>
 
 export const BaseApiResponse = (result, message) => ({
   result: result,
-  message: message,
+  res_msg: message,
 });
 
 export const isValidEmail = (email = "") =>
