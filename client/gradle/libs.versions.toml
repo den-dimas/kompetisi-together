@@ -1,0 +1,50 @@
+[versions]
+agp = "8.4.1"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+appcompat = "1.7.0"
+material = "1.12.0"
+activity = "1.9.0"
+constraintlayout = "2.1.4"
+navigation = "2.7.7"
+lifecycle = "2.8.1"
+room = "2.6.1"
+retrofit = "2.9.0"
+rxjava = "3.0.13"
+splash="1.0.0"
+
+[libraries]
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+
+splash = {module="androidx.core:core-splashscreen", version.ref="splash"}
+
+navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigation" }
+navigation-ui = { module = "androidx.navigation:navigation-ui", name = "ui", version.ref = "navigation" }
+navigation-dynamic-features-fragment = { module = "androidx.navigation:navigation-dynamic-features-fragment", name = "navigation-dynamic-features-fragment", version.ref = "navigation" }
+navigation-testing = { module = "androidx.navigation:navigation-testing", name = "navigation-testing", version.ref = "navigation" }
+
+lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime", name = "lifecycle-runtime", version.ref = "lifecycle" }
+lifecycle-compiler = { module = "androidx.lifecycle:lifecycle-compiler", name = "lifecycle-compiler", version.ref = "lifecycle" }
+lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata", name = "lifecycle-livedata", version.ref = "lifecycle" }
+lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", name = "lifecycle-viewmodel", version.ref = "lifecycle" }
+
+room-runtime = { module = "androidx.room:room-runtime", name = "room-runtime", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", name = "room-compiler", version.ref = "room" }
+
+retrofit = { module = "com.squareup.retrofit2:retrofit", name = "retrofit", version.ref = "retrofit" }
+retrofit-converter = { module = "com.squareup.retrofit2:converter-gson", name = "retrofit-converter", version.ref = "retrofit" }
+retrofit-adapter-rxjava = { module = "com.squareup.retrofit2:adapter-rxjava3", name = "retrofit-adapter-rxjava", version.ref = "retrofit" }
+
+rxjava = { module = "io.reactivex.rxjava3:rxjava", name = "rxjava", version.ref = "rxjava" }
+rxjava-android = { module = "io.reactivex.rxjava3:rxandroid", name = "rxjava-android", version = "3.0.0" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+

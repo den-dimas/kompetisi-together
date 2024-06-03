@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/auth_background"
+    tools:context=".ui.fragment.Auth.RegisterParticipantFragment">
+
+    <!-- Email Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilEmailParticipant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="44dp"
+        android:hint="Email"
+        app:boxStrokeColor="@color/md_theme_primary"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/md_theme_primary"
+        app:hintTextColor="@color/md_theme_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:startIconDrawable="@drawable/icon_email"
+        app:startIconTint="@color/md_theme_primary"
+        app:strokeColor="@color/md_theme_primary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietEmailParticipant"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Password Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPasswordParticipant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="44dp"
+        android:hint="Password"
+        app:boxStrokeColor="@color/md_theme_primary"
+        app:endIconMode="password_toggle"
+        app:endIconTint="@color/md_theme_primary"
+        app:hintTextColor="@color/md_theme_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilEmailParticipant"
+        app:startIconDrawable="@drawable/icon_password"
+        app:startIconTint="@color/md_theme_primary"
+        app:strokeColor="@color/md_theme_primary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietPasswordParticipant"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Name Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilNameParticipant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="44dp"
+        android:hint="Nama"
+        app:boxStrokeColor="@color/md_theme_primary"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/md_theme_primary"
+        app:hintTextColor="@color/md_theme_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilPasswordParticipant"
+        app:startIconDrawable="@drawable/icon_name"
+        app:startIconTint="@color/md_theme_primary"
+        app:strokeColor="@color/md_theme_primary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietNameParticipant"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Birthdate Input -->
+    <Button
+        android:id="@+id/btnTanggalLahir"
+        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginHorizontal="44dp"
+        android:layout_marginTop="12dp"
+        android:paddingHorizontal="12dp"
+        android:text="Tanggal Lahir"
+        android:textAlignment="textStart"
+        android:textColor="@color/md_theme_secondary"
+        android:textSize="16sp"
+        app:cornerRadius="4dp"
+        app:icon="@drawable/icon_calendar"
+        app:iconSize="24dp"
+        app:iconTint="@color/md_theme_primary"
+        app:layout_constraintTop_toBottomOf="@+id/tilNameParticipant"
+        app:strokeColor="@color/md_theme_primary" />
+
+    <!-- Sekolah Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilSekolahParticipant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="44dp"
+        android:hint="Sekolah"
+        app:boxStrokeColor="@color/md_theme_secondary"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/md_theme_primary"
+        app:hintTextColor="@color/md_theme_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTanggalLahir"
+        app:startIconDrawable="@drawable/icon_school"
+        app:startIconTint="@color/md_theme_primary"
+        app:strokeColor="@color/md_theme_primary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietSekolahParticipant"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnRegisterParticipant"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="44dp"
+        android:layout_marginTop="12dp"
+        android:text="Register"
+        android:textColor="@color/md_theme_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilSekolahParticipant"
+        app:strokeColor="@color/md_theme_primary" />
+
+    <TextView
+        android:id="@+id/btnGoToLoginParticipant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="44dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="12dp"
+        android:text="Login"
+        android:textColor="@color/md_theme_onSurface"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnRegisterParticipant" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="604dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

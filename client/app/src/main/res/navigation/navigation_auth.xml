@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_auth"
+    app:startDestination="@id/welcomeFragment">
+
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.kompor.ui.fragment.WelcomeFragment"
+        android:label="Welcome Fragment"
+        tools:layout="@layout/fragment_welcome">
+        <action
+            android:id="@+id/action_welcomeFragment_to_registerParticipantFragment"
+            app:destination="@id/registerParticipantFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_registerPenyelenggaraFragment"
+            app:destination="@id/registerPenyelenggaraFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerParticipantFragment"
+        android:name="com.kompor.ui.fragment.Auth.RegisterParticipantFragment"
+        android:label="fragment_register_participant"
+        tools:layout="@layout/fragment_register_participant">
+        <action
+            android:id="@+id/action_registerParticipantFragment_to_loginParticipantFragment"
+            app:destination="@id/loginParticipantFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/registerPenyelenggaraFragment"
+        android:name="com.kompor.ui.fragment.Auth.RegisterPenyelenggaraFragment"
+        android:label="fragment_register_penyelenggara"
+        tools:layout="@layout/fragment_register_penyelenggara">
+        <action
+            android:id="@+id/action_registerPenyelenggaraFragment_to_loginPenyelenggaraFragment"
+            app:destination="@id/loginPenyelenggaraFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/loginParticipantFragment"
+        android:name="com.kompor.ui.fragment.Auth.LoginParticipantFragment"
+        android:label="fragment_login_participant"
+        tools:layout="@layout/fragment_login_participant" >
+        <action
+            android:id="@+id/action_loginParticipantFragment_to_registerParticipantFragment"
+            app:destination="@id/registerParticipantFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginPenyelenggaraFragment"
+        android:name="com.kompor.ui.fragment.Auth.LoginPenyelenggaraFragment"
+        android:label="fragment_login_penyelenggara"
+        tools:layout="@layout/fragment_login_penyelenggara" >
+        <action
+            android:id="@+id/action_loginPenyelenggaraFragment_to_registerPenyelenggaraFragment"
+            app:destination="@id/registerPenyelenggaraFragment" />
+    </fragment>
+</navigation>

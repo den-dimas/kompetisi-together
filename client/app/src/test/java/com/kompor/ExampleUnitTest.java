@@ -1,4 +1,4 @@
-package com.kompetisi_together;
+package com.kompor;
 
 import org.junit.Test;
 
