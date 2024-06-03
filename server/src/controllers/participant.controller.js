@@ -14,12 +14,11 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
 
   if (!isValidEmail(email))
-    return res.status(400).send(BaseApiResponse(null, "Not a valid email!"));
+    return APIResponse(res, 400, null, "Invalid email!");
 
+  // prettier-ignore
   if (password.length < 8)
-    return res
-      .status(400)
-      .send(BaseApiResponse(null, "Password must have a minimum length of 8!"));
+    return APIResponse(res, 400, null, "Minimum password is 8!");
 
   try {
     const result = await db.query(
@@ -30,13 +29,12 @@ export const login = async (req, res) => {
 
     const data = result.rows[0];
 
-    if (!data)
-      return res.status(404).json(BaseApiResponse(null, "Account not found!"));
+    if (!data) return APIResponse(res, 404, null, "Account not found!");
 
     const isCorrectPassword = await bcrypt.compare(password, data.password);
 
     if (!isCorrectPassword)
-      return res.status(400).json(BaseApiResponse(null, "Wrong password!"));
+      return APIResponse(res, 400, null, "Wrong password!");
 
     // IF login succeed
     const token = createToken(data.id_participant, "participant");
