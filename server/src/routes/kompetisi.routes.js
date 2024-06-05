@@ -14,6 +14,8 @@ router.use(requireAuth);
 
 /* === Route for Kompetisi === */
 router.get("/", kompetisiController.getAllKompetisi);
+router.get("/paid", kompetisiController.getPaidKompetisi);
+router.post("/kategori", kompetisiController.getKompetisiByKategori);
 router.post("/", requirePenyelenggara, kompetisiController.createKompetisi);
 
 /* === Route for Kompetisi Details === */

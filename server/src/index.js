@@ -24,7 +24,16 @@ const PORT = process.env.PORT;
 /* ===========  Middlewares  =========== */
 /* ===================================== */
 /* Allow Cross Origin Request */
-app.use(cors());
+app.use(
+  cors({
+    allowedHeaders: [
+      "withCredentials",
+      "Authorization",
+      "authorization",
+      "Set-Cookie",
+    ],
+  })
+);
 /* All request is JSON based */
 app.use(express.json());
 /* Parsing Cookies */

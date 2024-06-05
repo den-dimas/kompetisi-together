@@ -11,9 +11,48 @@ export const getAllKompetisi = async (req, res) => {
   } = req.body;
 
   try {
+    let query = `
+    SELECT * FROM kompetisi
+    WHERE 1=1
+  `;
+
+    const result = await db.query(query);
+
+    const data = result.rows || [];
+
+    return APIResponse(res, 200, data, "Successfully get all competitions");
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json(error);
+  }
+};
+
+export const getKompetisiByKategori = async (req, res) => {
+  const { kategori } = req.body;
+
+  try {
+    const result = await db.query(
+      "SELECT * FROM kompetisi WHERE kategori = $1",
+      [kategori]
+    );
+
+    const data = result?.rows;
+
+    // prettier-ignore
+    return APIResponse(res, 200, data, "Success get competition in category " + kategori);
+  } catch (err) {
+    console.log(err);
+
+    return res.status(500).json(err);
+  }
+};
+
+export const getPaidKompetisi = async (req, res) => {
+  try {
     const result = await db.query(`
       SELECT * FROM kompetisi
-      WHERE 1=1
+      WHERE is_paid_ad = true
     `);
 
     const data = result.rows || [];

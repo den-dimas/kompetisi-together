@@ -44,8 +44,11 @@ export const login = async (req, res) => {
       secure: !(process.env.NODE_ENV === "development"),
     });
 
-    return res.status(202).json(BaseApiResponse(data, "Login Success!"));
+    return res
+      .status(202)
+      .json({ ...BaseApiResponse(data, "Login Success!"), token });
   } catch (error) {
+    console.log(error);
     return res.status(500).json(error);
   }
 };
@@ -79,13 +82,6 @@ export const register = async (req, res) => {
 
     if (!hashedPassword)
       return res.status(400).json(BaseApiResponse(null, "Wrong password!"));
-
-    const token = createToken(data.id_participant, "participant");
-
-    res.cookie("jwt", token, {
-      maxAge: 30 * 24 * 60 * 60,
-      secure: !(process.env.NODE_ENV === "development"),
-    });
 
     return res.status(202).json(BaseApiResponse(data, "Login Success!"));
   } catch (error) {

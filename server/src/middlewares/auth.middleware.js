@@ -6,7 +6,16 @@ import { db } from "../config/db.js";
 const jwt = jsonwebtoken;
 
 export const requireAuth = async (req, res, next) => {
-  const token = req.cookies?.jwt;
+  const header = req.headers.authorization || req.headers.Authorization;
+
+  if (!header?.startsWith("Bearer "))
+    return res.status(403).json({
+      result: null,
+      message: "You're not authorized!",
+      authorized: false,
+    });
+
+  const token = header.split(" ")[1];
 
   if (!!token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
@@ -23,7 +32,16 @@ export const requireAuth = async (req, res, next) => {
 };
 
 export const requirePenyelenggara = async (req, res, next) => {
-  const token = req.cookies?.jwt;
+  const header = req.headers.authorization || req.headers.Authorization;
+
+  if (!header?.startsWith("Bearer "))
+    return res.status(403).json({
+      result: null,
+      message: "You're not authorized!",
+      authorized: false,
+    });
+
+  const token = header.split(" ")[1];
 
   if (!!token) {
     jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
@@ -51,7 +69,16 @@ export const requirePenyelenggara = async (req, res, next) => {
 };
 
 export const requireParticipant = async (req, res, next) => {
-  const token = req.cookies?.jwt;
+  const header = req.headers.authorization || req.headers.Authorization;
+
+  if (!header?.startsWith("Bearer "))
+    return res.status(403).json({
+      result: null,
+      message: "You're not authorized!",
+      authorized: false,
+    });
+
+  const token = header.split(" ")[1];
 
   if (!!token) {
     jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {

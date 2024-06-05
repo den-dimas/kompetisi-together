@@ -49,10 +49,10 @@ export const login = async (req, res) => {
       secure: !(process.env.NODE_ENV === "development"),
     });
 
-    return APIResponse(res, 202, data, "Login success!");
+    return res
+      .status(200)
+      .json({ ...BaseApiResponse(data, "Success login!"), token });
   } catch (error) {
-    console.log(error);
-
     return res.status(500).json(error);
   }
 };
@@ -88,17 +88,8 @@ export const register = async (req, res) => {
 
     const data = result.rows[0];
 
-    const token = createToken(data.id_penyelenggara, "penyelenggara");
-
-    res.cookie("jwt", token, {
-      maxAge: 30 * 24 * 60 * 60,
-      secure: !(process.env.NODE_ENV === "development"),
-    });
-
     return APIResponse(res, 200, data, "Success register!");
   } catch (error) {
-    console.log(error);
-
     if (error.code === "23505")
       return res.status(400).json(BaseApiResponse(null, "Email already used!"));
 
@@ -116,8 +107,6 @@ export const logout = async (req, res) => {
 
     return APIResponse(res, 200, null, "Success logout!");
   } catch (error) {
-    console.log(error);
-
     return res.status(500).json(error);
   }
 };
