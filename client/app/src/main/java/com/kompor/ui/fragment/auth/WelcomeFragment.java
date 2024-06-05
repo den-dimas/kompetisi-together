@@ -1,5 +1,6 @@
 package com.kompor.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,9 @@ import androidx.navigation.Navigation;
 import com.kompor.R;
 import com.kompor.controller.AuthController;
 import com.kompor.databinding.FragmentWelcomeBinding;
+import com.kompor.ui.activity.MainActivity;
+
+import java.util.ArrayList;
 
 public class WelcomeFragment extends Fragment {
     FragmentWelcomeBinding binding;
@@ -30,6 +34,13 @@ public class WelcomeFragment extends Fragment {
         binding = FragmentWelcomeBinding.inflate(inflater, container, false);
 
         controller = new ViewModelProvider(requireActivity()).get(AuthController.class);
+
+        ArrayList<String> loginInfo = AuthController.getLoginInfo(requireActivity());
+
+        if (loginInfo != null) {
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+        }
 
         return binding.getRoot();
     }
