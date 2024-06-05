@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/md_theme_background"
+        tools:context=".ui.fragment.home.KompetisiDetailsFragment">
+
+        <!-- Competition Image -->
+        <ImageView
+            android:id="@+id/ivKompetisiDetails"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:contentDescription="Gambar Kompetisi"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Competition Name -->
+        <TextView
+            android:id="@+id/tvNamaKompetisi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="24dp"
+            android:ellipsize="end"
+            android:text="NAMA KOMPETISI"
+            android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivKompetisiDetails" />
+
+        <!-- Registration Date Header -->
+        <TextView
+            android:id="@+id/tvTanggalPendaftaranHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:text="TANGGAL PENDAFTARAN"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+            android:background="@color/md_theme_primary"
+            android:textColor="@color/md_theme_onPrimary"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvNamaKompetisi" />
+
+        <!-- Registration Date -->
+        <TextView
+            android:id="@+id/tvTanggalPendaftaran"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:text="01 Jan 2024 - 31 Jan 2024"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTanggalPendaftaranHeader" />
+
+        <!-- Category Header -->
+        <TextView
+            android:id="@+id/tvKategoriDetailsHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:text="KATEGORI"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+            android:background="@color/md_theme_primary"
+            android:textColor="@color/md_theme_onPrimary"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTanggalPendaftaran" />
+
+        <!-- Category -->
+        <TextView
+            android:id="@+id/tvKategoriDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:text="Kategori"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvKategoriDetailsHeader" />
+
+        <!-- Minimum Members Header -->
+        <TextView
+            android:id="@+id/tvAnggotaHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:text="MINIMUM ANGGOTA"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+            android:background="@color/md_theme_primary"
+            android:textColor="@color/md_theme_onPrimary"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvKategoriDetails" />
+
+        <!-- Minimum Members -->
+        <TextView
+            android:id="@+id/tvAnggota"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:text="Minimum Anggota"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAnggotaHeader" />
+
+        <!-- Level Header -->
+        <TextView
+            android:id="@+id/tvTingkatHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:text="TINGKAT"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+            android:background="@color/md_theme_primary"
+            android:textColor="@color/md_theme_onPrimary"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAnggota" />
+
+        <!-- Level -->
+        <TextView
+            android:id="@+id/tvTingkat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:text="SMA"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTingkatHeader" />
+
+        <!-- Description Header -->
+        <TextView
+            android:id="@+id/tvDeskripsiTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:text="DESKRIPSI"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+            android:background="@color/md_theme_primary"
+            android:textColor="@color/md_theme_onPrimary"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTingkat" />
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/tvDeskripsi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:justificationMode="inter_word"
+            android:text="Lorem Ipsum"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDeskripsiTitle" />
+
+        <!-- Register Button -->
+
+        <!-- Kelompok Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCariKelompok"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginVertical="24dp"
+            android:text="Cari Kelompok"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDeskripsi" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

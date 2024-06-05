@@ -5,7 +5,7 @@ public class Resource<T> {
     private final T result;
     private final String res_msg;
 
-    private Resource(Boolean success, T result, String res_msg) {
+    public Resource(Boolean success, T result, String res_msg) {
         this.success = success;
         this.result = result;
         this.res_msg = res_msg;

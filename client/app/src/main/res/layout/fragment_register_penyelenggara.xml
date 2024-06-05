@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/auth_background"
-    tools:context=".ui.fragment.Auth.RegisterPenyelenggaraFragment">
+    tools:context=".ui.fragment.auth.RegisterPenyelenggaraFragment">
 
     <!-- Email Input -->
     <com.google.android.material.textfield.TextInputLayout

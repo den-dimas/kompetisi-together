@@ -20,7 +20,7 @@ public class Participant {
     String password;
     String createdAt;
     String updatedAt;
-
+    String token;
 
     @Ignore
     public Participant(String id_participant, String nama, int angkatan, String tanggal_lahir, String sekolah, String email, String password, String createdAt, String updatedAt, int level, int kemenangan, int jumlah_pendaftaran, float rating) {
@@ -157,5 +157,13 @@ public class Participant {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

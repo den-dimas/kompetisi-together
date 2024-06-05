@@ -9,47 +9,48 @@ import java.sql.Timestamp;
 @Entity(tableName = "penyelenggara")
 public class Penyelenggara {
     @PrimaryKey
-    String idPenyelenggara;
+    String id_penyelenggara;
     String logo;
     String name;
     String deskripsi;
-    String jumlahKompetisi;
+    String jumlah_kompetisi;
     String email;
     String password;
-    Timestamp createdAt;
-    Timestamp updatedAt;
+    String token;
+    Timestamp created_at;
+    Timestamp updated_at;
 
     @Ignore
-    public Penyelenggara(String idPenyelenggara, String logo, String name, String deskripsi, String jumlahKompetisi, String email, String password, Timestamp createdAt, Timestamp updatedAt) {
-        this.idPenyelenggara = idPenyelenggara;
+    public Penyelenggara(String id_penyelenggara, String logo, String name, String deskripsi, String jumlah_kompetisi, String email, String password, Timestamp created_at, Timestamp updated_at) {
+        this.id_penyelenggara = id_penyelenggara;
         this.logo = logo;
         this.name = name;
         this.deskripsi = deskripsi;
-        this.jumlahKompetisi = jumlahKompetisi;
+        this.jumlah_kompetisi = jumlah_kompetisi;
         this.email = email;
         this.password = password;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
     }
 
     public Penyelenggara(Penyelenggara penyelenggara) {
-        this.idPenyelenggara = penyelenggara.getIdPenyelenggara();
+        this.id_penyelenggara = penyelenggara.getId_penyelenggara();
         this.logo = penyelenggara.getLogo();
         this.name = penyelenggara.getName();
         this.deskripsi = penyelenggara.getDeskripsi();
-        this.jumlahKompetisi = penyelenggara.getJumlahKompetisi();
+        this.jumlah_kompetisi = penyelenggara.getJumlah_kompetisi();
         this.email = penyelenggara.getEmail();
         this.password = penyelenggara.getPassword();
-        this.createdAt = penyelenggara.getCreatedAt();
-        this.updatedAt = penyelenggara.getUpdatedAt();
+        this.created_at = penyelenggara.getCreated_at();
+        this.updated_at = penyelenggara.getUpdated_at();
     }
 
-    public String getIdPenyelenggara() {
-        return idPenyelenggara;
+    public String getId_penyelenggara() {
+        return id_penyelenggara;
     }
 
-    public void setIdPenyelenggara(String idPenyelenggara) {
-        this.idPenyelenggara = idPenyelenggara;
+    public void setId_penyelenggara(String id_penyelenggara) {
+        this.id_penyelenggara = id_penyelenggara;
     }
 
     public String getLogo() {
@@ -76,12 +77,12 @@ public class Penyelenggara {
         this.deskripsi = deskripsi;
     }
 
-    public String getJumlahKompetisi() {
-        return jumlahKompetisi;
+    public String getJumlah_kompetisi() {
+        return jumlah_kompetisi;
     }
 
-    public void setJumlahKompetisi(String jumlahKompetisi) {
-        this.jumlahKompetisi = jumlahKompetisi;
+    public void setJumlah_kompetisi(String jumlah_kompetisi) {
+        this.jumlah_kompetisi = jumlah_kompetisi;
     }
 
     public String getEmail() {
@@ -100,20 +101,28 @@ public class Penyelenggara {
         this.password = password;
     }
 
-    public Timestamp getCreatedAt() {
-        return createdAt;
+    public Timestamp getCreated_at() {
+        return created_at;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
+    public void setCreated_at(Timestamp created_at) {
+        this.created_at = created_at;
     }
 
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
+    public Timestamp getUpdated_at() {
+        return updated_at;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setUpdated_at(Timestamp updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
 

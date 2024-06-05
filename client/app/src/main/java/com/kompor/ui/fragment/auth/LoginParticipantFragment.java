@@ -1,5 +1,6 @@
-package com.kompor.ui.fragment.Auth;
+package com.kompor.ui.fragment.auth;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,9 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.kompor.api.model.Participant;
 import com.kompor.controller.AuthController;
 import com.kompor.databinding.FragmentLoginParticipantBinding;
 import com.kompor.ui.Utils;
+import com.kompor.ui.activity.MainActivity;
 
 public class LoginParticipantFragment extends Fragment {
     FragmentLoginParticipantBinding binding;
@@ -44,13 +47,23 @@ public class LoginParticipantFragment extends Fragment {
         binding.tilPassword.getEditText().addTextChangedListener(Utils.clearError(binding.tilPassword));
 
         controller.getParticipantInfo().observe(getViewLifecycleOwner(), participant -> {
-            if (participant.getResult() == null) {
+            Participant data = participant.getResult();
+
+            if (data == null) {
                 if (participant.getRes_msg().contains("Account"))
                     Utils.setInputError(binding.tilEmail, participant.getRes_msg());
 
                 if (participant.getRes_msg().contains("password"))
                     Utils.setInputError(binding.tilPassword, participant.getRes_msg());
+
+                return;
             }
+
+            controller.setLoginInfo(requireActivity(), data.getId_participant(), "PARTICIPANT", participant.getToken());
+
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+            getActivity().finish();
         });
 
         binding.btnLogin.setOnClickListener(v -> {

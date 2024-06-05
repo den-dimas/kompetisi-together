@@ -1,4 +1,4 @@
-package com.kompor.ui.fragment;
+package com.kompor.ui.fragment.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,19 +35,22 @@ public class WelcomeFragment extends Fragment {
 
         controller = new ViewModelProvider(requireActivity()).get(AuthController.class);
 
-        ArrayList<String> loginInfo = AuthController.getLoginInfo(requireActivity());
-
-        if (loginInfo != null) {
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            startActivity(intent);
-        }
-
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ArrayList<String> loginInfo = controller.getLoginInfo(requireActivity());
+
+        if (loginInfo != null) {
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+
+            if (getActivity() != null)
+                getActivity().finish();
+        }
 
         binding.btnContinueToParticipant.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_welcomeFragment_to_registerParticipantFragment));
         binding.btnContinueToPenyelenggara.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_welcomeFragment_to_registerPenyelenggaraFragment));

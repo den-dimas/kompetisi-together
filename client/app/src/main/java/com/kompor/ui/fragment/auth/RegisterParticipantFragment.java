@@ -1,4 +1,4 @@
-package com.kompor.ui.fragment.Auth;
+package com.kompor.ui.fragment.auth;
 
 import android.os.Bundle;
 
@@ -54,7 +54,7 @@ public class RegisterParticipantFragment extends Fragment {
         binding.tilSekolahParticipant.getEditText().addTextChangedListener(Utils.clearError(binding.tilSekolahParticipant));
 
         binding.btnTanggalLahir.setOnClickListener(v -> {
-            binding.btnTanggalLahir.setText("Tanggal lahir");
+            binding.btnTanggalLahir.setText("Tanggal Lahir");
             binding.btnTanggalLahir.setError(null);
             showDatePicker();
         });
@@ -64,7 +64,11 @@ public class RegisterParticipantFragment extends Fragment {
                 String msg = participant.getRes_msg().toLowerCase();
                 if (msg.contains("email") || msg.contains("account"))
                     Utils.setInputError(binding.tilEmailParticipant, participant.getRes_msg());
+
+                return;
             }
+
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_registerParticipantFragment_to_loginParticipantFragment);
         });
 
         binding.btnRegisterParticipant.setOnClickListener(v -> {

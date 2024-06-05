@@ -2,6 +2,7 @@ package com.kompor.api.service;
 
 import com.kompor.api.model.Participant;
 import com.kompor.api.model.Penyelenggara;
+import com.kompor.api.utils.AuthResource;
 import com.kompor.api.utils.Resource;
 
 import io.reactivex.rxjava3.core.Single;
@@ -13,14 +14,14 @@ import retrofit2.http.POST;
 public interface AuthService {
     @FormUrlEncoded
     @POST("/penyelenggara/login")
-    Single<Response<Resource<Penyelenggara>>> loginPenyelenggara(
+    Single<Response<AuthResource<Penyelenggara>>> loginPenyelenggara(
             @Field("email") String email,
             @Field("password") String password
     );
 
     @FormUrlEncoded
     @POST("/penyelenggara/register")
-    Single<Response<Resource<Penyelenggara>>> registerPenyelenggara(
+    Single<Response<AuthResource<Penyelenggara>>> registerPenyelenggara(
             @Field("email") String email,
             @Field("password") String password,
             @Field("logo") String logo,
@@ -30,14 +31,14 @@ public interface AuthService {
 
     @FormUrlEncoded
     @POST("/participant/login")
-    Single<Response<Resource<Participant>>> loginParticipant(
+    Single<Response<AuthResource<Participant>>> loginParticipant(
             @Field("email") String email,
             @Field("password") String password
     );
 
     @FormUrlEncoded
     @POST("/participant/register")
-    Single<Response<Resource<Participant>>> registerParticipant(
+    Single<Response<AuthResource<Participant>>> registerParticipant(
             @Field("email") String email,
             @Field("password") String password,
             @Field("nama") String nama,

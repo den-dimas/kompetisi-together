@@ -1,4 +1,4 @@
-package com.kompor.ui.fragment.Auth;
+package com.kompor.ui.fragment.auth;
 
 import android.os.Bundle;
 
@@ -52,7 +52,11 @@ public class RegisterPenyelenggaraFragment extends Fragment {
                 String msg = participant.getRes_msg().toLowerCase();
                 if (msg.contains("email") || msg.contains("account"))
                     Utils.setInputError(binding.tilEmailPenyelenggara, participant.getRes_msg());
+
+                return;
             }
+
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_registerPenyelenggaraFragment_to_loginPenyelenggaraFragment);
         });
 
         binding.btnRegisterPenyelenggara.setOnClickListener(v -> {

@@ -1,5 +1,6 @@
-package com.kompor.ui.fragment.Auth;
+package com.kompor.ui.fragment.auth;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.kompor.api.model.Penyelenggara;
 import com.kompor.controller.AuthController;
 import com.kompor.databinding.FragmentLoginPenyelenggaraBinding;
 import com.kompor.ui.Utils;
-
-import java.util.Objects;
+import com.kompor.ui.activity.MainActivity;
 
 public class LoginPenyelenggaraFragment extends Fragment {
     FragmentLoginPenyelenggaraBinding binding;
@@ -44,13 +45,23 @@ public class LoginPenyelenggaraFragment extends Fragment {
         binding.tilPassword.getEditText().addTextChangedListener(Utils.clearError(binding.tilPassword));
 
         controller.getPenyelenggaraInfo().observe(getViewLifecycleOwner(), penyelenggara -> {
-            if (penyelenggara.getResult() == null) {
+            Penyelenggara data = penyelenggara.getResult();
+
+            if (data == null) {
                 if (penyelenggara.getRes_msg().contains("Account") || penyelenggara.getRes_msg().contains("email"))
                     Utils.setInputError(binding.tilEmail, penyelenggara.getRes_msg());
 
                 if (penyelenggara.getRes_msg().contains("password"))
                     Utils.setInputError(binding.tilPassword, penyelenggara.getRes_msg());
+
+                return;
             }
+
+            controller.setLoginInfo(requireActivity(), data.getId_penyelenggara(), "PENYELENGGARA", penyelenggara.getToken());
+
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+            getActivity().finish();
         });
 
         binding.btnLogin.setOnClickListener(v -> {

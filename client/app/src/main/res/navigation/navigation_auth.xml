@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.kompor.ui.fragment.WelcomeFragment"
+        android:name="com.kompor.ui.fragment.auth.WelcomeFragment"
         android:label="Welcome Fragment"
         tools:layout="@layout/fragment_welcome">
         <action
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerParticipantFragment"
-        android:name="com.kompor.ui.fragment.Auth.RegisterParticipantFragment"
+        android:name="com.kompor.ui.fragment.auth.RegisterParticipantFragment"
         android:label="fragment_register_participant"
         tools:layout="@layout/fragment_register_participant">
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerPenyelenggaraFragment"
-        android:name="com.kompor.ui.fragment.Auth.RegisterPenyelenggaraFragment"
+        android:name="com.kompor.ui.fragment.auth.RegisterPenyelenggaraFragment"
         android:label="fragment_register_penyelenggara"
         tools:layout="@layout/fragment_register_penyelenggara">
         <action
@@ -53,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginParticipantFragment"
-        android:name="com.kompor.ui.fragment.Auth.LoginParticipantFragment"
+        android:name="com.kompor.ui.fragment.auth.LoginParticipantFragment"
         android:label="fragment_login_participant"
         tools:layout="@layout/fragment_login_participant" >
         <action
@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginPenyelenggaraFragment"
-        android:name="com.kompor.ui.fragment.Auth.LoginPenyelenggaraFragment"
+        android:name="com.kompor.ui.fragment.auth.LoginPenyelenggaraFragment"
         android:label="fragment_login_penyelenggara"
         tools:layout="@layout/fragment_login_penyelenggara" >
         <action
