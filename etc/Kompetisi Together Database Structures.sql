@@ -40,6 +40,7 @@ create table kompetisi (
     tingkat             tingkat not null,
     anggota_per_tim     int not null,
     kategori            kategori not null,
+    is_paid_ad          bool not null,
 
     created_at          timestamp not null default(now()),
     updated_at          timestamp not null default(now()),
