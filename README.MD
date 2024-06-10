@@ -38,6 +38,12 @@ Pengguna dapat login sebagai Participant untuk mengikuti dan mencari kompetisi a
 
 ![Screenshot Pengelolaan](/etc/img/welcome_screen.png)
 
+## Sistem Design
+
+[Link Presentasi](https://docs.google.com/presentation/d/1dPEcoUlZfZI1CqTsSbmjShGmnL3IcM7gPAHO6D0wcqI/edit?usp=sharing)
+
+![Screenshot Sisdes](/etc/img/sisdes.jpg)
+
 ## 🛠️ Struktur Backend
 
 Backend dari **Kompor** dibangun menggunakan Node.js dengan beberapa dependensi utama seperti Express untuk framework web, Cloudinary untuk manajemen media, dan PostgreSQL sebagai database. Berikut adalah struktur direktori dan cara menjalankan backend:
