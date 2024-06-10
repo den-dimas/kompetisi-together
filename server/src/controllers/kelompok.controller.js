@@ -6,7 +6,11 @@ export const getAllKelompok = async (req, res) => {
 
   try {
     const result = await db.query(
-      `SELECT * FROM kelompok WHERE id_kompetisi = $1`,
+      `SELECT * FROM kelompok
+        NATURAL JOIN anggota_kelompok
+        NATURAL JOIN participant
+        WHERE kelompok.id_kompetisi = $1 AND anggota_kelompok.is_ketua = true
+        `,
       [id_kompetisi]
     );
 
