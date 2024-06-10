@@ -6,8 +6,8 @@ const router = express.Router();
 
 router.use(requireAuth)
 
-router.get("/", kelompokController.getAllKelompok);
-router.post("/", requireParticipant, kelompokController.createKelompok);
+router.post("/", kelompokController.getAllKelompok);
+router.post("/create", requireParticipant, kelompokController.createKelompok);
 
 router.get("/:id", kelompokController.getKelompokById);
 router.post("/:id", requireParticipant, kelompokController.changePendaftaranKelompok);
