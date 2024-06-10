@@ -13,10 +13,10 @@ const router = express.Router();
 router.use(requireAuth);
 
 /* === Route for Kompetisi === */
-router.get("/", kompetisiController.getAllKompetisi);
+router.post("/", kompetisiController.getAllKompetisi);
 router.get("/paid", kompetisiController.getPaidKompetisi);
 router.post("/kategori", kompetisiController.getKompetisiByKategori);
-router.post("/", requirePenyelenggara, kompetisiController.createKompetisi);
+router.post("/create", requirePenyelenggara, kompetisiController.createKompetisi);
 
 /* === Route for Kompetisi Details === */
 router.get("/:id", kompetisiController.getKompetisiById);
