@@ -125,6 +125,32 @@ app/
 
 ---
 
+## 💖 Struktur Program
+
+### 1. Entity Relationship Diagram
+
+![Screenshot 100](/etc/img/ERD.jpg)
+
+### 2. API Flow
+
+1. **Participant**
+
+   ![Screenshot 122](/etc/img/participant_api.png)
+
+2. **Penyelenggara**
+
+   ![Screenshot 123](/etc/img/penyelenggara_api.png)
+
+### 2. Program Flow
+
+1. **Participant**
+
+   ![Screenshot 124](/etc/img/flow_partcipant.jpg)
+
+2. **Penyelenggara**
+
+   ![Screenshot 125](/etc/img/flow_penyelenggara.jpg)
+
 ## 📄 Lisensi
 
 Aplikasi ini dilisensikan di bawah [MIT License](LICENSE).
