@@ -30,9 +30,9 @@ public class RetrofitClient {
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseURL)
-                    .client(client.build())
-                    .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(client.build())
                     .build();
         }
 
@@ -52,9 +52,9 @@ public class RetrofitClient {
 
             retrofitWithAuth = new Retrofit.Builder()
                     .baseUrl(baseURL)
-                    .client(client.build())
-                    .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(client.build())
                     .build();
         }
 

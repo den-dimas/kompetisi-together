@@ -182,3 +182,74 @@ alter table participant
     add foreign key (level) references gelar (level);
 alter table participant
     add foreign key (kemenangan) references gelar (level);
+
+ALTER TABLE anggota_kelompok DROP CONSTRAINT anggota_kelompok_id_participant_key;
+from information_schema.table_constraints tc
+where table_schema = 'public' and table_name = 'anggota_kelompok'
+
+-- Insert dummy data into penyelenggara table
+INSERT INTO penyelenggara (logo, nama, deskripsi, email, password)
+VALUES
+    ('', 'Penyelenggara1', 'Deskripsi penyelenggara 1', 'penyelenggara1@example.com', '$2b$10$0v1ChzQmBzOe/8Wm0ZzGmeHVs0XXn0SChwWdhcTn7EodfOhTPyFiK'),
+    ('', 'Penyelenggara2', 'Deskripsi penyelenggara 2', 'penyelenggara2@example.com', '$2b$10$OJQkgB7pWblZBrXh/fcmvO8nvqCETrP7pQ5d/zZyTllRAFYj4iwH6'),
+    ('', 'Penyelenggara3', 'Deskripsi penyelenggara 3', 'penyelenggara3@example.com', '$2b$10$Xyk/RRm.F5bV58.f5L5GQuOaU8ciNZ5hr8bPpCOECL8ueK4J3PBVW'),
+    ('', 'Penyelenggara4', 'Deskripsi penyelenggara 4', 'penyelenggara4@example.com', '$2b$10$GDJ39UTNiH9yMSeUQkRDSu3GpUHi4g1oRPLz43A5xPdFQkReRDrzS'),
+    ('', 'Penyelenggara5', 'Deskripsi penyelenggara 5', 'penyelenggara5@example.com', '$2b$10$YAjmS06YO1XKZcrsXOhYneT/E0p9a1FMdpGJ5lfEg1hP6F9tY6v7y'),
+    ('', 'Penyelenggara6', 'Deskripsi penyelenggara 6', 'penyelenggara6@example.com', '$2b$10$UlM6HS6qBzBlgoF6QrrFVO79VVy15yd/VwLLZa8EK5PVYtvM6zfqK'),
+    ('', 'Penyelenggara7', 'Deskripsi penyelenggara 7', 'penyelenggara7@example.com', '$2b$10$h8tEokb1.yNtzx9h0ldDHeibTDYgtl5iaY2COhz8yJfoKT4I2nF7a'),
+    ('', 'Penyelenggara8', 'Deskripsi penyelenggara 8', 'penyelenggara8@example.com', '$2b$10$tV7QYrE2cfiF9Xc5BPONVOTnSfa4ABaBbl6KshGyJ7ZZNkGoIwAVe'),
+    ('', 'Penyelenggara9', 'Deskripsi penyelenggara 9', 'penyelenggara9@example.com', '$2b$10$ZqBpWBcDpJJUPrk8VgL2jO3reDBl78Fj/Be5nph.x2yNC/7jEsrm2'),
+    ('', 'Penyelenggara10', 'Deskripsi penyelenggara 10', 'penyelenggara10@example.com', '$2b$10$wl1q2S1jb2r0EC1tPyIkHe4trxbQ0ofBJYzMNBmiJFGkXZdtuw/Ti');
+
+-- Insert dummy data into kompetisi table
+INSERT INTO kompetisi (foto, nama_kompetisi, id_penyelenggara, pendaftaran_dari, pendaftaran_sampai, deskripsi, tingkat, anggota_per_tim, kategori)
+VALUES
+    ('', 'Kompetisi1', (SELECT id_penyelenggara FROM penyelenggara ORDER BY RANDOM() LIMIT 1), '2024-06-01 09:00:00', '2024-06-30 23:59:59', 'Deskripsi kompetisi 1', (SELECT unnest FROM unnest(enum_range(NULL::tingkat)) ORDER BY RANDOM() LIMIT 1), 5, (SELECT unnest FROM unnest(enum_range(NULL::kategori)) ORDER BY RANDOM() LIMIT 1)),
+    ('', 'Kompetisi2', (SELECT id_penyelenggara FROM penyelenggara ORDER BY RANDOM() LIMIT 1), '2024-07-01 09:00:00', '2024-07-30 23:59:59', 'Deskripsi kompetisi 2', (SELECT unnest FROM unnest(enum_range(NULL::tingkat)) ORDER BY RANDOM() LIMIT 1), 3, (SELECT unnest FROM unnest(enum_range(NULL::kategori)) ORDER BY RANDOM() LIMIT 1)),
+    ('', 'Kompetisi3', (SELECT id_penyelenggara FROM penyelenggara ORDER BY RANDOM() LIMIT 1), '2024-08-01 09:00:00', '2024-08-30 23:59:59', 'Deskripsi kompetisi 3', (SELECT unnest FROM unnest(enum_range(NULL::tingkat)) ORDER BY RANDOM() LIMIT 1), 4, (SELECT unnest FROM unnest(enum_range(NULL::kategori)) ORDER BY RANDOM() LIMIT 1)),
+    ('', 'Kompetisi4', (SELECT id_penyelenggara FROM penyelenggara ORDER BY RANDOM() LIMIT 1), '2024-09-01 09:00:00', '2024-09-30 23:59:59', 'Deskripsi kompetisi 4', (SELECT unnest FROM unnest(enum_range(NULL::tingkat)) ORDER BY RANDOM() LIMIT 1), 2, (SELECT unnest FROM unnest(enum_range(NULL::kategori)) ORDER BY RANDOM() LIMIT 1)),
+    ('', 'Kompetisi5', (SELECT id_penyelenggara FROM penyelenggara ORDER BY RANDOM() LIMIT 1), '2024-10-01 09:00:00', '2024-10-30 23:59:59', 'Deskripsi kompetisi 5', (SELECT unnest FROM unnest(enum_range(NULL::tingkat)) ORDER BY RANDOM() LIMIT 1), 6, (SELECT unnest FROM unnest(enum_range(NULL::kategori)) ORDER BY RANDOM() LIMIT 1)),
+    ('', 'Kompetisi6', (SELECT id_penyelenggara FROM penyelenggara ORDER BY RANDOM() LIMIT 1), '2024-11-01 09:00:00', '2024-11-30 23:59:59', 'Deskripsi kompetisi 6', (SELECT unnest FROM unnest(enum_range(NULL::tingkat)) ORDER BY RANDOM() LIMIT 1), 5, (SELECT unnest FROM unnest(enum_range(NULL::kategori)) ORDER BY RANDOM() LIMIT 1)),
+    ('', 'Kompetisi7', (SELECT id_penyelenggara FROM penyelenggara ORDER BY RANDOM() LIMIT 1), '2024-12-01 09:00:00', '2024-12-30 23:59:59', 'Deskripsi kompetisi 7', (SELECT unnest FROM unnest(enum_range(NULL::tingkat)) ORDER BY RANDOM() LIMIT 1), 4, (SELECT unnest FROM unnest(enum_range(NULL::kategori)) ORDER BY RANDOM() LIMIT 1)),
+    ('', 'Kompetisi8', (SELECT id_penyelenggara FROM penyelenggara ORDER BY RANDOM() LIMIT 1), '2024-01-01 09:00:00', '2024-01-30 23:59:59', 'Deskripsi kompetisi 8', (SELECT unnest FROM unnest(enum_range(NULL::tingkat)) ORDER BY RANDOM() LIMIT 1), 3, (SELECT unnest FROM unnest(enum_range(NULL::kategori)) ORDER BY RANDOM() LIMIT 1)),
+    ('', 'Kompetisi9', (SELECT id_penyelenggara FROM penyelenggara ORDER BY RANDOM() LIMIT 1), '2024-02-01 09:00:00', '2024-02-28 23:59:59', 'Deskripsi kompetisi 9', (SELECT unnest FROM unnest(enum_range(NULL::tingkat)) ORDER BY RANDOM() LIMIT 1), 5, (SELECT unnest FROM unnest(enum_range(NULL::kategori)) ORDER BY RANDOM() LIMIT 1)),
+    ('', 'Kompetisi10', (SELECT id_penyelenggara FROM penyelenggara ORDER BY RANDOM() LIMIT 1), '2024-03-01 09:00:00', '2024-03-30 23:59:59', 'Deskripsi kompetisi 10', (SELECT unnest FROM unnest(enum_range(NULL::tingkat)) ORDER BY RANDOM() LIMIT 1), 2, (SELECT unnest FROM unnest(enum_range(NULL::kategori)) ORDER BY RANDOM() LIMIT 1)),
+    ('', 'Kompetisi11', (SELECT id_penyelenggara FROM penyelenggara ORDER BY RANDOM() LIMIT 1), '2024-04-01 09:00:00', '2024-04-30 23:59:59', 'Deskripsi kompetisi 11', (SELECT unnest FROM unnest(enum_range(NULL::tingkat)) ORDER BY RANDOM() LIMIT 1), 6, (SELECT unnest FROM unnest(enum_range(NULL::kategori)) ORDER BY RANDOM() LIMIT 1)),
+    ('', 'Kompetisi12', (SELECT id_penyelenggara FROM penyelenggara ORDER BY RANDOM() LIMIT 1), '2024-05-01 09:00:00', '2024-05-30 23:59:59', 'Deskripsi kompetisi 12', (SELECT unnest FROM unnest(enum_range(NULL::tingkat)) ORDER BY RANDOM() LIMIT 1), 5, (SELECT unnest FROM unnest(enum_range(NULL::kategori)) ORDER BY RANDOM() LIMIT 1)),
+    ('', 'Kompetisi13', (SELECT id_penyelenggara FROM penyelenggara ORDER BY RANDOM() LIMIT 1), '2024-06-01 09:00:00', '2024-06-30 23:59:59', 'Deskripsi kompetisi 13', (SELECT unnest FROM unnest(enum_range(NULL::tingkat)) ORDER BY RANDOM() LIMIT 1), 4, (SELECT unnest FROM unnest(enum_range(NULL::kategori)) ORDER BY RANDOM() LIMIT 1)),
+    ('', 'Kompetisi14', (SELECT id_penyelenggara FROM penyelenggara ORDER BY RANDOM() LIMIT 1), '2024-07-01 09:00:00', '2024-07-30 23:59:59', 'Deskripsi kompetisi 14', (SELECT unnest FROM unnest(enum_range(NULL::tingkat)) ORDER BY RANDOM() LIMIT 1), 3, (SELECT unnest FROM unnest(enum_range(NULL::kategori)) ORDER BY RANDOM() LIMIT 1)),
+    ('', 'Kompetisi15', (SELECT id_penyelenggara FROM penyelenggara ORDER BY RANDOM() LIMIT 1), '2024-08-01 09:00:00', '2024-08-30 23:59:59', 'Deskripsi kompetisi 15', (SELECT unnest FROM unnest(enum_range(NULL::tingkat)) ORDER BY RANDOM() LIMIT 1), 2, (SELECT unnest FROM unnest(enum_range(NULL::kategori)) ORDER BY RANDOM() LIMIT 1));
+
+insert into gelar (level, judul)
+values 
+  (0, 'Pemula'),
+  (1, 'Pemula'),
+  (2, 'Pemula'),
+  (3, 'Pemula'),
+  (4, 'Amatir'),
+  (5, 'Amatir'),
+  (6, 'Amatir'),
+  (7, 'Amatir'),
+  (8, 'Amatir'),
+  (9, 'Jago'),
+  (10, 'Jago'),
+  (11, 'Jago'),
+  (12, 'Jago'),
+  (13, 'Jago'),
+  (14, 'Sepuh'),
+  (15, 'Sepuh'),
+  (16, 'Sepuh'),
+  (17, 'Sepuh'),
+  (18, 'Sepuh'),
+  (19, 'Sepuh'),
+  (20, 'Sepuh'),
+  (21, 'GOD'),
+  (22, 'GOD'),
+  (23, 'GOD'),
+  (24, 'GOD'),
+  (25, 'GOD'),
+  (26, 'GOD'),
+  (27, 'GOD'),
+  (28, 'GOD'),
+  (29, 'GOD'),
+  (30, 'Pemenang');

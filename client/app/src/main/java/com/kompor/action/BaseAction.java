@@ -19,6 +19,7 @@ public abstract class BaseAction {
     public static <T> Single<Resource<T>> apiRequest(Single<Response<Resource<T>>> apiToBeCalled) {
         return apiToBeCalled.subscribeOn(Schedulers.io()).map((response) -> {
             if (response.isSuccessful()) {
+                assert response.body() != null;
                 return new Resource.Success<>(response.body().getResult(), response.message());
             } else if (response.code() >= 400 && response.code() < 600) {
                 Gson gson = new Gson();
@@ -49,14 +50,11 @@ public abstract class BaseAction {
 
                 ApiResponse<T> d = gson.fromJson(response.errorBody().string(), ApiResponse.class);
 
-                Log.d("Auth", "Network : " + response.raw() + " " + response.code());
                 return new AuthResource.Success<T>(null, d.getRes_msg(), null);
             } else {
                 return new AuthResource.Error<T>(response.message());
             }
         }).onErrorReturn(throwable -> {
-            Log.d("Login", "Error Executed");
-
             if (throwable instanceof HttpException) {
                 HttpException httpException = (HttpException) throwable;
                 return new AuthResource.Error<>(httpException.getMessage());

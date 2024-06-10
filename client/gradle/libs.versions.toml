@@ -46,7 +46,7 @@ room-compiler = { module = "androidx.room:room-compiler", name = "room-compiler"
 
 retrofit = { module = "com.squareup.retrofit2:retrofit", name = "retrofit", version.ref = "retrofit" }
 retrofit-converter = { module = "com.squareup.retrofit2:converter-gson", name = "retrofit-converter", version.ref = "retrofit" }
-retrofit-adapter-rxjava = { module = "com.squareup.retrofit2:adapter-rxjava3", name = "retrofit-adapter-rxjava", version.ref = "retrofit" }
+retrofit-adapter-rxjava = { module = "com.squareup.retrofit2:adapter-rxjava3", name = "retrofit-adapter-rxjava3", version.ref = "retrofit" }
 
 rxjava = { module = "io.reactivex.rxjava3:rxjava", name = "rxjava", version.ref = "rxjava" }
 rxjava-android = { module = "io.reactivex.rxjava3:rxandroid", name = "rxjava-android", version = "3.0.0" }

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.kompor.api.model.Participant;
 import com.kompor.controller.AuthController;
@@ -56,6 +57,7 @@ public class LoginParticipantFragment extends Fragment {
                 if (participant.getRes_msg().contains("password"))
                     Utils.setInputError(binding.tilPassword, participant.getRes_msg());
 
+                Toast.makeText(requireActivity(), participant.getRes_msg(), Toast.LENGTH_SHORT).show();
                 return;
             }
 
