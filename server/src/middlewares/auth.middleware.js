@@ -23,7 +23,7 @@ export const requireAuth = async (req, res, next) => {
         console.log(err);
         return APIResponse(res, 403, null, "You don't have the authorization!");
       } else {
-        next();
+        return next();
       }
     });
   } else {
