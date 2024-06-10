@@ -1,7 +1,3 @@
-Berikut adalah file `README.md` yang menjelaskan mengenai aplikasi **Kompetisi Together (Kompor)** dalam bahasa Indonesia dengan struktur yang baik dan menggunakan placeholder untuk gambar.
-
----
-
 # Kompetisi Together (Kompor)
 
 ![Kompor Logo](/etc/img/header.png)
