@@ -1,5 +1,13 @@
+import { v2 as cloudinary } from "cloudinary";
+
 import { db } from "../config/db.js";
 import { APIResponse, BaseApiResponse } from "../config/utils.js";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_KEY,
+  api_secret: process.env.CLOUD_SECRET,
+});
 
 export const getAllKompetisi = async (req, res) => {
   const {
@@ -12,11 +20,50 @@ export const getAllKompetisi = async (req, res) => {
 
   try {
     let query = `
-    SELECT * FROM kompetisi
-    WHERE 1=1
+    SELECT id_kompetisi,
+      foto,
+      nama_kompetisi,
+      kompetisi.id_penyelenggara,
+      pendaftaran_dari,
+      pendaftaran_sampai,
+      kompetisi.deskripsi,
+      tutup_pendaftaran,
+      tingkat,
+      anggota_per_tim,
+      kategori,
+      is_paid_ad,
+      kompetisi.created_at,
+      kompetisi.updated_at, nama as "nama_penyelenggara", logo as "logo_penyelenggara" FROM kompetisi
+      INNER JOIN penyelenggara
+      ON kompetisi.id_penyelenggara = penyelenggara.id_penyelenggara
+      WHERE 1=1
   `;
 
-    const result = await db.query(query);
+    const params = [];
+
+    if (!!pendaftaran_dari) {
+      params.push(pendaftaran_dari);
+      query += ` AND pendaftaran_dari >= $${params.length}`;
+    }
+
+    if (!!tingkat && tingkat !== "ALL") {
+      params.push(tingkat);
+      query += ` AND tingkat = $${params.length}`;
+    }
+
+    if (!!anggota_per_tim) {
+      params.push(anggota_per_tim);
+      query += ` AND anggota_per_tim >= $${params.length}`;
+    }
+
+    if (!!kategori) {
+      params.push(kategori);
+      query += ` AND kategori = $${params.length}`;
+    }
+
+    query += " ORDER BY created_at DESC";
+
+    const result = await db.query(query, params);
 
     const data = result.rows || [];
 
@@ -76,17 +123,32 @@ export const createKompetisi = async (req, res) => {
     tingkat,
     anggota_per_tim,
     kategori,
+    foto,
   } = req.body;
+
+  const cRes = await cloudinary.uploader
+    .upload(foto, {
+      public_id: nama_kompetisi,
+      overwrite: true,
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  const fotoURL = cloudinary.url(nama_kompetisi, {
+    fetch_format: "auto",
+    quality: "auto",
+  });
 
   try {
     const result = await db.query(
       `
-      INSERT INTO kompetisi (id_penyelenggara, nama_kompetisi, pendaftaran_dari, pendaftaran_sampai, deskripsi, tutup_pendaftaran, tingkat, anggota_per_tim, kategori)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      INSERT INTO kompetisi (id_penyelenggara, nama_kompetisi, pendaftaran_dari, pendaftaran_sampai, deskripsi, tutup_pendaftaran, tingkat, anggota_per_tim, kategori, foto)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
       RETURNING *
       `,
       // prettier-ignore
-      [id_penyelenggara, nama_kompetisi, pendaftaran_dari, pendaftaran_sampai, deskripsi, tutup_pendaftaran, tingkat, anggota_per_tim, kategori]
+      [id_penyelenggara, nama_kompetisi, pendaftaran_dari, pendaftaran_sampai, deskripsi, tutup_pendaftaran, tingkat, anggota_per_tim, kategori, fotoURL]
     );
 
     const data = result.rows[0];
