@@ -77,9 +77,6 @@ export const register = async (req, res) => {
 
     const data = result.rows[0];
 
-    if (!data)
-      return res.status(400).json(BaseApiResponse(null, "Account not found!"));
-
     if (!hashedPassword)
       return res.status(400).json(BaseApiResponse(null, "Wrong password!"));
 
@@ -104,6 +101,77 @@ export const logout = async (req, res) => {
   } catch (error) {
     console.log(error);
 
+    return res.status(500).json(error);
+  }
+};
+
+export const getParticipantById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await db.query(
+      "SELECT * FROM participant WHERE id_participant = $1",
+      [id]
+    );
+
+    const data = result.rows[0];
+
+    if (!data)
+      return res.status(404).json(BaseApiResponse(null, "Account not found!"));
+
+    return APIResponse(res, 200, data, "Success!");
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+export const changeParticipant = async (req, res) => {
+  const { id } = req.params;
+  const { email, nama, sekolah } = req.body;
+
+  if (!isValidEmail(email))
+    return res.status(400).json(BaseApiResponse(null, "Email not valid!"));
+
+  try {
+    const result = await db.query(
+      ` UPDATE participant
+        SET email = $1,
+            nama = $2,
+            sekolah = $3,
+            updated_at = now()
+        WHERE id_participant = $4
+        RETURNING *`,
+      [email, nama, sekolah, id]
+    );
+
+    const data = result.rows[0];
+
+    return res.status(202).json(BaseApiResponse(data, "Login Success!"));
+  } catch (error) {
+    if (error.code === "23505")
+      return res.status(400).json(BaseApiResponse(null, "Email already used!"));
+
+    return res.status(500).json(error);
+  }
+};
+
+export const getParticipantKompetisi = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await db.query(
+      `SELECT * from anggota_kelompok
+        NATURAL JOIN kelompok
+        INNER JOIN kompetisi
+        ON kompetisi.id_kompetisi = kelompok.id_kompetisi
+        WHERE anggota_kelompok.id_participant = $1`,
+      [id]
+    );
+
+    const data = result.rows;
+
+    return res.status(202).json(BaseApiResponse(data, "Success!"));
+  } catch (error) {
     return res.status(500).json(error);
   }
 };

@@ -1,3 +1,6 @@
+import { v2 as cloudinary } from "cloudinary";
+import bcrypt from "bcrypt";
+
 import { db } from "../config/db.js";
 import {
   APIResponse,
@@ -7,7 +10,11 @@ import {
   isValidEmail,
 } from "../config/utils.js";
 
-import bcrypt from "bcrypt";
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_KEY,
+  api_secret: process.env.CLOUD_SECRET,
+});
 
 /* =============================================
  * =====   AUTHENTICATION CONTROLLERS   ========
@@ -106,6 +113,100 @@ export const logout = async (req, res) => {
     });
 
     return APIResponse(res, 200, null, "Success logout!");
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+export const getPenyelenggaraById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await db.query(
+      "SELECT * FROM penyelenggara WHERE id_penyelenggara = $1",
+      [id]
+    );
+
+    const data = result.rows[0];
+
+    if (!data)
+      return res.status(404).json(BaseApiResponse(null, "Account not found!"));
+
+    return APIResponse(res, 200, data, "Success!");
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+export const changePenyelenggara = async (req, res) => {
+  const { id } = req.params;
+  const { email, logo, nama, deskripsi } = req.body;
+
+  if (nama.length < 3)
+    return APIResponse(res, 400, null, "Name must have a minimum length of 3!");
+
+  // prettier-ignore
+  if (deskripsi.length < 8)
+    return APIResponse(res, 400, null, "Description must have a minimum length of 8!");
+
+  if (!isValidEmail(email))
+    return APIResponse(res, 400, null, "Email not valid!");
+
+  const cRes = await cloudinary.uploader
+    .upload(logo, {
+      public_id: nama,
+      overwrite: true,
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  const fotoURL = cloudinary.url(nama, {
+    fetch_format: "auto",
+    quality: "auto",
+  });
+
+  try {
+    const result = await db.query(
+      `
+    UPDATE penyelenggara
+    SET email = $1,
+        logo = $2,
+        nama = $3,
+        updated_at = now(),
+        deskripsi = $4
+    WHERE id_penyelenggara = $5
+    RETURNING *
+    `,
+      [email, fotoURL, nama, deskripsi, id]
+    );
+
+    const data = result.rows[0];
+
+    return APIResponse(res, 200, data, "Success edit!");
+  } catch (error) {
+    if (error.code === "23505")
+      return res.status(400).json(BaseApiResponse(null, "Email already used!"));
+
+    return res.status(500).json(error);
+  }
+};
+
+export const getPenyelenggaraKompetisi = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await db.query(
+      `SELECT * from kompetisi
+        INNER JOIN penyelenggara
+        ON penyelenggara.id_penyelenggara = kompetisi.id_penyelenggara
+        WHERE penyelenggara.id_penyelenggara = $1`,
+      [id]
+    );
+
+    const data = result.rows;
+
+    return res.status(202).json(BaseApiResponse(data, "Success!"));
   } catch (error) {
     return res.status(500).json(error);
   }
