@@ -42,6 +42,10 @@ Pengguna dapat login sebagai Participant untuk mengikuti dan mencari kompetisi a
 
 Backend dari **Kompor** dibangun menggunakan Node.js dengan beberapa dependensi utama seperti Express untuk framework web, Cloudinary untuk manajemen media, dan PostgreSQL sebagai database. Berikut adalah struktur direktori dan cara menjalankan backend:
 
+### Postman Dokumentasi
+
+![Kompor API Dokumentasi](https://documenter.getpostman.com/view/31059748/2sA3XLG4sn)
+
 ### Struktur Direktori
 
 ```
