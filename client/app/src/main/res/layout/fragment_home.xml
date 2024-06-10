@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Cari Kompetisi"
+        android:textColorHint="@color/md_theme_onSurface"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +33,7 @@
         android:layout_marginTop="28dp"
         android:text="Trending"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@color/md_theme_onSurface"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_bar" />
 
@@ -55,6 +57,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
         android:text="Kategori"
+        android:textColor="@color/md_theme_onSurface"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rvCarousel" />
@@ -92,6 +95,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/md_theme_onSurface"
                 android:text="Game"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
         </LinearLayout>
@@ -116,6 +120,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/md_theme_onSurface"
                 android:text="Debat"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
         </LinearLayout>
@@ -140,6 +145,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/md_theme_onSurface"
                 android:text="Seni"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
         </LinearLayout>
@@ -164,6 +170,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/md_theme_onSurface"
                 android:text="Paper"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
         </LinearLayout>
@@ -188,6 +195,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/md_theme_onSurface"
                 android:text="Robotik"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
         </LinearLayout>
@@ -212,6 +220,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/md_theme_onSurface"
                 android:text="UI/UX"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
         </LinearLayout>
@@ -236,6 +245,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/md_theme_onSurface"
                 android:text="Programming"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
         </LinearLayout>
@@ -260,6 +270,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/md_theme_onSurface"
                 android:text="IoT"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
         </LinearLayout>

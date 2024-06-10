@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.kompor.R;
+import com.kompor.api.model.LoginInfo;
 import com.kompor.controller.AuthController;
 import com.kompor.databinding.FragmentWelcomeBinding;
 import com.kompor.ui.activity.MainActivity;
@@ -42,9 +43,9 @@ public class WelcomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ArrayList<String> loginInfo = controller.getLoginInfo(requireActivity());
+        LoginInfo loginInfo = AuthController.getLoginInfo(requireActivity());
 
-        if (loginInfo != null) {
+        if (loginInfo != null && loginInfo.getId() != null && loginInfo.getToken() != null) {
             Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);
 

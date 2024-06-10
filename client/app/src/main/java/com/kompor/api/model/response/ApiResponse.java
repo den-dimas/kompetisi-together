@@ -1,4 +1,4 @@
-package com.kompor.api.model;
+package com.kompor.api.model.response;
 
 public class ApiResponse<T> {
     private final T result;

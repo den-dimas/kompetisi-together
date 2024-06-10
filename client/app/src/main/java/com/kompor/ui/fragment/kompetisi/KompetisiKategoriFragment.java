@@ -1,4 +1,4 @@
-package com.kompor.ui.fragment.home;
+package com.kompor.ui.fragment.kompetisi;
 
 import android.os.Bundle;
 
@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,37 +42,34 @@ public class KompetisiKategoriFragment extends Fragment {
 
         Bundle bundle = getArguments();
         String kategori = bundle.getString("kategori");
+        int anggota = bundle.getInt("anggota");
+        String tingkat = bundle.getString("tingkat");
+        String tanggal = bundle.getString("tanggal");
 
-        Log.d("KATEGORI", kategori + "");
-
-        ArrayList<Kompetisi> kompetisiList = new ArrayList<>();
 
         controller.getListKompetisi().observe(getViewLifecycleOwner(), res -> {
             ArrayList<Kompetisi> data = res.getResult();
 
-            Log.d("DATA", data.get(0).getFoto() + "");
-
             if (data != null) {
                 setupAdapter(data);
-                kompetisiList.addAll(data);
             }
         });
 
-        controller.getKompetisiByKategori(kategori);
+        controller.getAllKompetisi(tanggal, null, tingkat, (anggota != 0 ? anggota : null), kategori);
 
         return binding.getRoot();
     }
-
 
     private void setupAdapter(ArrayList<Kompetisi> kompetisiList) {
         RecyclerView rv = binding.rvKompetisiKategori;
 
         KompetisiListAdapter adapter = new KompetisiListAdapter(requireActivity(), kompetisiList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireActivity());
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(requireActivity(), 2);
 
         layoutManager.setOrientation(RecyclerView.VERTICAL);
 
-        rv.setLayoutManager(layoutManager);
+        rv.setLayoutManager(gridLayoutManager);
 
         adapter.setOnItemClickListener((view, source) -> {
             Bundle bundle = new Bundle();

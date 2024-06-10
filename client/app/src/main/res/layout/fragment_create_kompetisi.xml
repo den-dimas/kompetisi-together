@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="16dp"
+    android:background="?attr/colorSurface"
+    tools:context=".ui.fragment.kompetisi.CreateKompetisiFragment">
+
+    <ImageView
+        android:id="@+id/ivFotoKompetisi"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Foto Kompetisi"
+        android:scaleType="centerCrop"
+        android:src="@drawable/icon_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Nama Kompetisi -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilNamaKompetisi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="Nama Kompetisi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivFotoKompetisi">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etNamaKompetisi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Pendaftaran Dari -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPendaftaranDari"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Pendaftaran Dari"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilNamaKompetisi">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPendaftaranDari"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
+            android:inputType="date"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Pendaftaran Sampai -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPendaftaranSampai"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Pendaftaran Sampai"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilPendaftaranDari">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPendaftaranSampai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
+            android:inputType="date"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Deskripsi -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilDeskripsi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Deskripsi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilPendaftaranSampai">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDeskripsi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:lines="4"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Tingkat -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilTingkat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="tingkat"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilDeskripsi">
+
+        <Spinner
+            android:id="@+id/spinnerTingkat"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@null"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Anggota Per Tim -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAnggotaPerTim"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Anggota Per Tim"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilTingkat">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAnggotaPerTim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Kategori -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilKategori"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="kategori"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilAnggotaPerTim">
+
+        <Spinner
+            android:id="@+id/spinnerKategori"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@null"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Save Changes Button -->
+    <Button
+        android:id="@+id/btnCreateKompetisi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:text="Create Kompetisi"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/tilKategori"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

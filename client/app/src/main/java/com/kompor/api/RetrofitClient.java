@@ -44,7 +44,6 @@ public class RetrofitClient {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
 
             logging.setLevel(Level.BODY);
-            logging.setLevel(Level.HEADERS);
 
             OkHttpClient.Builder client = new OkHttpClient.Builder();
 

@@ -1,10 +1,18 @@
 package com.kompor.ui;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
+import android.webkit.MimeTypeMap;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.regex.Pattern;
 
 public class Utils {
@@ -41,6 +49,32 @@ public class Utils {
         }
 
         return true;
+    }
+
+    public static String uriToBase64(Context context, Uri uri) {
+        try {
+            // Get the image extension
+            String mimeType = context.getContentResolver().getType(uri);
+            String extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
+
+            // Open input stream from URI
+            InputStream inputStream = context.getContentResolver().openInputStream(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+
+            // Convert bitmap to byte array
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream); // Adjust format as needed
+            byte[] byteArray = outputStream.toByteArray();
+
+            // Encode byte array to Base64 string
+            String base64Image = Base64.encodeToString(byteArray, Base64.NO_WRAP);
+
+            // Return the image data with prefix
+            return "data:image/" + extension + ";base64," + base64Image;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static boolean isValidEmail(String email) {

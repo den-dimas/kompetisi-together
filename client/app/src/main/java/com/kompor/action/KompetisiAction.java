@@ -1,4 +1,4 @@
-package com.kompor.action.kompetisi;
+package com.kompor.action;
 
 import android.content.Context;
 
@@ -27,15 +27,36 @@ public class KompetisiAction extends BaseAction {
         return apiRequest(kompetisiService.getKompetisiByKategori(kategori.toUpperCase()));
     }
 
-    public Single<Resource<Kompetisi>> createKompetisiAction(String id_penyelenggara, String nama_kompetisi, String pendaftaran_dari, String pendaftaran_sampai, String deskripsi, String tutup_pendaftaran, String tingkat, Integer anggota_per_tim, String kategori) {
-        return apiRequest(kompetisiService.createKompetisi(id_penyelenggara, nama_kompetisi, pendaftaran_dari, pendaftaran_sampai, deskripsi, tutup_pendaftaran, tingkat, anggota_per_tim, kategori));
+    public Single<Resource<Kompetisi>> createKompetisiAction(String id_penyelenggara, String nama_kompetisi, String pendaftaran_dari, String pendaftaran_sampai, String deskripsi, boolean tutup_pendaftaran, String tingkat, Integer anggota_per_tim, String kategori, String foto) {
+        return apiRequest(kompetisiService.createKompetisi(id_penyelenggara, nama_kompetisi, pendaftaran_dari, pendaftaran_sampai, deskripsi, tutup_pendaftaran, tingkat, anggota_per_tim, kategori, foto));
     }
 
     public Single<Resource<Kompetisi>> getKompetisiDetailsAction(String id_kompetisi) {
         return apiRequest(kompetisiService.getKompetisiDetails(id_kompetisi));
     }
 
-    public Single<Resource<Kompetisi>> changeKompetisiDetailsAction(String id_kompetisi, String nama_kompetisi, String pendaftaran_dari, String pendaftaran_sampai, String deskripsi, String tutup_pendaftaran, String tingkat, Integer anggota_per_tim, String kategori) {
-        return apiRequest(kompetisiService.changeKompetisiDetails(id_kompetisi, nama_kompetisi, pendaftaran_dari, pendaftaran_sampai, deskripsi, tutup_pendaftaran, tingkat, anggota_per_tim, kategori));
+    public Single<Resource<Kompetisi>> changeKompetisiDetailsAction(
+            String id_kompetisi,
+            String nama_kompetisi,
+            String pendaftaran_dari,
+            String pendaftaran_sampai,
+            String deskripsi,
+            boolean tutup_pendaftaran,
+            String tingkat,
+            Integer anggota_per_tim,
+            String kategori,
+            String foto
+    ) {
+        return apiRequest(kompetisiService.changeKompetisiDetails(
+                id_kompetisi,
+                nama_kompetisi,
+                pendaftaran_dari,
+                pendaftaran_sampai,
+                deskripsi,
+                tutup_pendaftaran,
+                tingkat,
+                anggota_per_tim,
+                kategori,
+                foto));
     }
 }

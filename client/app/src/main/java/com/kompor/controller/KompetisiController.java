@@ -1,12 +1,10 @@
 package com.kompor.controller;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.kompor.action.kompetisi.KompetisiAction;
-import com.kompor.api.model.ApiResponse;
+import com.kompor.action.KompetisiAction;
+import com.kompor.api.model.response.ApiResponse;
 import com.kompor.api.model.Kompetisi;
 
 import java.util.ArrayList;
@@ -19,6 +17,7 @@ public class KompetisiController extends Controller {
 
     private final MutableLiveData<ApiResponse<ArrayList<Kompetisi>>> listKompetisi = new MutableLiveData<>();
     private final MutableLiveData<ApiResponse<Kompetisi>> kompetisi = new MutableLiveData<>();
+    private final MutableLiveData<String> image = new MutableLiveData<>();
 
     public void getAllKompetisi(String pendaftaran_dari, String pendaftaran_sampai, String tingkat, Integer anggota_per_tim, String kategori) {
         disposable.add(action.getAllKompetisiAction(pendaftaran_dari, pendaftaran_sampai, tingkat, anggota_per_tim, kategori).subscribe(result -> {
@@ -44,8 +43,8 @@ public class KompetisiController extends Controller {
         }));
     }
 
-    public void createKompetisi(String id_penyelenggara, String nama_kompetisi, String pendaftaran_dari, String pendaftaran_sampai, String deskripsi, String tutup_pendaftaran, String tingkat, Integer anggota_per_tim, String kategori) {
-        disposable.add(action.createKompetisiAction(id_penyelenggara, nama_kompetisi, pendaftaran_dari, pendaftaran_sampai, deskripsi, tutup_pendaftaran, tingkat, anggota_per_tim, kategori).subscribe(result -> {
+    public void createKompetisi(String id_penyelenggara, String nama_kompetisi, String pendaftaran_dari, String pendaftaran_sampai, String deskripsi, boolean tutup_pendaftaran, String tingkat, Integer anggota_per_tim, String kategori, String foto) {
+        disposable.add(action.createKompetisiAction(id_penyelenggara, nama_kompetisi, pendaftaran_dari, pendaftaran_sampai, deskripsi, tutup_pendaftaran, tingkat, anggota_per_tim, kategori, foto).subscribe(result -> {
             if (result.getSuccess())
                 kompetisi.postValue(new ApiResponse<>(result.getResult(), result.getRes_msg()));
             else kompetisi.postValue(new ApiResponse<>(null, result.getRes_msg()));
@@ -60,8 +59,27 @@ public class KompetisiController extends Controller {
         }));
     }
 
-    public void changeKompetisiDetails(String id_kompetisi, String nama_kompetisi, String pendaftaran_dari, String pendaftaran_sampai, String deskripsi, String tutup_pendaftaran, String tingkat, Integer anggota_per_tim, String kategori) {
-        disposable.add(action.changeKompetisiDetailsAction(id_kompetisi, nama_kompetisi, pendaftaran_dari, pendaftaran_sampai, deskripsi, tutup_pendaftaran, tingkat, anggota_per_tim, kategori).subscribe(result -> {
+    public void changeKompetisiDetails(
+            String id_kompetisi,
+            String nama_kompetisi,
+            String pendaftaran_dari,
+            String pendaftaran_sampai,
+            String deskripsi,
+            boolean tutup_pendaftaran,
+            String tingkat,
+            Integer anggota_per_tim,
+            String kategori,
+            String foto) {
+        disposable.add(action.changeKompetisiDetailsAction(id_kompetisi,
+                nama_kompetisi,
+                pendaftaran_dari,
+                pendaftaran_sampai,
+                deskripsi,
+                tutup_pendaftaran,
+                tingkat,
+                anggota_per_tim,
+                kategori,
+                foto).subscribe(result -> {
             if (result.getSuccess())
                 kompetisi.postValue(new ApiResponse<>(result.getResult(), result.getRes_msg()));
             else kompetisi.postValue(new ApiResponse<>(null, result.getRes_msg()));
@@ -75,4 +93,12 @@ public class KompetisiController extends Controller {
     public LiveData<ApiResponse<Kompetisi>> getKompetisi() {
         return kompetisi;
     }
+
+    public void setImage(String image) {
+        this.image.setValue(image);
+    }
+    public LiveData<String> getImage() {
+        return image;
+    }
+
 }

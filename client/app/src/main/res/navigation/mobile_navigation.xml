@@ -24,11 +24,28 @@
             app:popExitAnim="@anim/to_right"
             android:id="@+id/action_navigation_home_to_navigation_kompetisi_kategori"
             app:destination="@id/navigation_kompetisi_kategori" />
+        <action
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            android:id="@+id/action_navigation_home_to_penyelenggaraProfileFragment"
+            app:destination="@id/penyelenggaraProfileFragment" />
+        <action
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            android:id="@+id/action_navigation_home_to_participantProfileFragment"
+            app:destination="@id/participantProfileFragment" />
+        <action
+            android:id="@+id/action_navigation_home_self"
+            app:destination="@id/navigation_home" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_kompetisi_kategori"
-        android:name="com.kompor.ui.fragment.home.KompetisiKategoriFragment"
+        android:name="com.kompor.ui.fragment.kompetisi.KompetisiKategoriFragment"
         android:label="Detail Kompetisi"
         tools:layout="@layout/fragment_kompetisi_kategori"
         >
@@ -45,18 +62,80 @@
         android:id="@+id/navigation_dashboard"
         android:name="com.kompor.ui.fragment.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.kompor.ui.fragment.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            android:id="@+id/action_navigation_dashboard_to_frKompetisiDetails"
+            app:destination="@id/frKompetisiDetails" />
+        <action
+            android:id="@+id/action_navigation_dashboard_self"
+            app:destination="@id/navigation_dashboard" />
+        <action
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            android:id="@+id/action_navigation_dashboard_to_createKompetisiFragment"
+            app:destination="@id/createKompetisiFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/frKompetisiDetails"
-        android:name="com.kompor.ui.fragment.home.KompetisiDetailsFragment"
+        android:name="com.kompor.ui.fragment.kompetisi.KompetisiDetailsFragment"
         android:label="Detail Kompetisi"
         tools:layout="@layout/fragment_kompetisi_details"
-        />
+        >
+        <action
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            android:id="@+id/action_frKompetisiDetails_to_kelompokListFragment"
+            app:destination="@id/kelompokListFragment" />
+        <action
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            android:id="@+id/action_frKompetisiDetails_to_createKompetisiFragment"
+            app:destination="@id/createKompetisiFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/penyelenggaraProfileFragment"
+        android:name="com.kompor.ui.fragment.profile.PenyelenggaraProfileFragment"
+        android:label="fragment_penyelenggara_profile"
+        tools:layout="@layout/fragment_penyelenggara_profile" />
+
+    <fragment
+        android:id="@+id/participantProfileFragment"
+        android:name="com.kompor.ui.fragment.profile.ParticipantProfileFragment"
+        android:label="fragment_participant_profile"
+        tools:layout="@layout/fragment_participant_profile" />
+    <fragment
+        android:id="@+id/kelompokListFragment"
+        android:name="com.kompor.ui.fragment.kelompok.KelompokListFragment"
+        android:label="fragment_kelompok_list"
+        tools:layout="@layout/fragment_kelompok_list" >
+        <action
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            android:id="@+id/action_kelompokListFragment_to_kelompokDetailsFragment"
+            app:destination="@id/kelompokDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/kelompokDetailsFragment"
+        android:name="com.kompor.ui.fragment.kelompok.KelompokDetailsFragment"
+        android:label="fragment_kelompok_details"
+        tools:layout="@layout/fragment_kelompok_details" />
+    <fragment
+        android:id="@+id/createKompetisiFragment"
+        android:name="com.kompor.ui.fragment.kompetisi.CreateKompetisiFragment"
+        android:label="fragment_create_kompetisi"
+        tools:layout="@layout/fragment_create_kompetisi" />
 </navigation>

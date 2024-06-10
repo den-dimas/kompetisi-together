@@ -1,19 +1,12 @@
 package com.kompor.action;
 
-import android.content.Context;
-import android.system.Os;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.kompor.api.RetrofitClient;
-import com.kompor.api.model.ApiResponse;
+import com.kompor.api.model.response.ApiResponse;
 import com.kompor.api.utils.AuthResource;
 import com.kompor.api.utils.Resource;
-
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.util.Enumeration;
 
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;

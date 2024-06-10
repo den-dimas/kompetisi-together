@@ -1,5 +1,6 @@
 package com.kompor.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,14 +70,15 @@ public class KompetisiListAdapter extends RecyclerView.Adapter<KompetisiListAdap
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_kompetisi_list_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_kompetisi_item, viewGroup, false);
 
         return new ViewHolder(view);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int position) {
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
 
@@ -85,8 +87,8 @@ public class KompetisiListAdapter extends RecyclerView.Adapter<KompetisiListAdap
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         SimpleDateFormat fds = new SimpleDateFormat("dd, MMMM", new Locale("id", "ID"));
 
-        String dari = null;
-        String sampai = null;
+        String dari;
+        String sampai;
         try {
             dari = fds.format(sdf.parse(data.getPendaftaran_dari()));
             sampai = fds.format(sdf.parse(data.getPendaftaran_sampai()));

@@ -11,7 +11,7 @@ public class Penyelenggara {
     @PrimaryKey
     String id_penyelenggara;
     String logo;
-    String name;
+    String nama;
     String deskripsi;
     String jumlah_kompetisi;
     String email;
@@ -21,10 +21,10 @@ public class Penyelenggara {
     Timestamp updated_at;
 
     @Ignore
-    public Penyelenggara(String id_penyelenggara, String logo, String name, String deskripsi, String jumlah_kompetisi, String email, String password, Timestamp created_at, Timestamp updated_at) {
+    public Penyelenggara(String id_penyelenggara, String logo, String nama, String deskripsi, String jumlah_kompetisi, String email, String password, Timestamp created_at, Timestamp updated_at) {
         this.id_penyelenggara = id_penyelenggara;
         this.logo = logo;
-        this.name = name;
+        this.nama = nama;
         this.deskripsi = deskripsi;
         this.jumlah_kompetisi = jumlah_kompetisi;
         this.email = email;
@@ -36,7 +36,7 @@ public class Penyelenggara {
     public Penyelenggara(Penyelenggara penyelenggara) {
         this.id_penyelenggara = penyelenggara.getId_penyelenggara();
         this.logo = penyelenggara.getLogo();
-        this.name = penyelenggara.getName();
+        this.nama = penyelenggara.getNama();
         this.deskripsi = penyelenggara.getDeskripsi();
         this.jumlah_kompetisi = penyelenggara.getJumlah_kompetisi();
         this.email = penyelenggara.getEmail();
@@ -61,12 +61,12 @@ public class Penyelenggara {
         this.logo = logo;
     }
 
-    public String getName() {
-        return name;
+    public String getNama() {
+        return nama;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
     public String getDeskripsi() {

@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/ivKompetisiList"
             android:layout_width="match_parent"
-            android:layout_height="194dp"
+            android:layout_height="120dp"
             android:scaleType="centerCrop" />
 
         <LinearLayout
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="NAMA KOMPETISI"
-                android:textAppearance="?attr/textAppearanceTitleMedium" />
+                android:textAppearance="?attr/textAppearanceTitleSmall" />
 
             <TextView
                 android:id="@+id/tvTanggalPendaftaranList"
@@ -42,16 +42,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Tanggal Pendaftaran"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textAppearance="?attr/textAppearanceBodySmall"
                 android:textColor="?android:attr/textColorSecondary" />
 
             <TextView
                 android:id="@+id/tvTingkatList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="Tingkat"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textAppearance="?attr/textAppearanceBodySmall"
                 android:textColor="?android:attr/textColorSecondary" />
 
         </LinearLayout>
@@ -67,9 +67,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginVertical="16dp"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                android:layout_marginBottom="8dp"
+                android:gravity="start"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -80,8 +80,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
                         android:src="@drawable/icon_dashboard" />
 
                     <TextView
@@ -89,8 +89,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:text="UI/UX"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                        android:textSize="12sp"
+                        android:text="UI/UX" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -98,13 +98,12 @@
                     android:layout_height="wrap_content"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:layout_marginLeft="8dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
                         android:src="@drawable/icon_person" />
 
                     <TextView
@@ -113,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:text="4 Anggota"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                        android:textSize="12sp" />
                 </LinearLayout>
 
             </LinearLayout>

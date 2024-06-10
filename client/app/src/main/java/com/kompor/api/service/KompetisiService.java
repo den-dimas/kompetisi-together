@@ -18,11 +18,11 @@ public interface KompetisiService {
     @FormUrlEncoded
     @POST("/kompetisi/")
     Single<Response<Resource<ArrayList<Kompetisi>>>> getAllKompetisi(
-        @Field("/kompetisi/pendaftaran_dari") String pendaftaran_dari,
-        @Field("/kompetisi/pendaftaran_sampai") String pendaftaran_sampai,
-        @Field("/kompetisi/tingkat") String tingkat,
-        @Field("/kompetisi/anggota_per_tim") Integer anggota_per_tim,
-        @Field("/kompetisi/kategori") String kategori
+        @Field("pendaftaran_dari") String pendaftaran_dari,
+        @Field("pendaftaran_sampai") String pendaftaran_sampai,
+        @Field("tingkat") String tingkat,
+        @Field("anggota_per_tim") Integer anggota_per_tim,
+        @Field("kategori") String kategori
     );
 
     @GET("/kompetisi/paid")
@@ -36,17 +36,19 @@ public interface KompetisiService {
         @Field("kategori") String kategori
     );
 
-    @POST("/kompetisi/")
+    @FormUrlEncoded
+    @POST("/kompetisi/create")
     Single<Response<Resource<Kompetisi>>> createKompetisi(
-        @Field("/kompetisi/id_penyelenggara") String id_penyelenggara,
-        @Field("/kompetisi/nama_kompetisi") String nama_kompetisi,
-        @Field("/kompetisi/pendaftaran_dari") String pendaftaran_dari,
-        @Field("/kompetisi/pendaftaran_sampai") String pendaftaran_sampai,
-        @Field("/kompetisi/deskripsi") String deskripsi,
-        @Field("/kompetisi/tutup_pendaftaran") String tutup_pendaftaran,
-        @Field("/kompetisi/tingkat") String tingkat,
-        @Field("/kompetisi/anggota_per_tim") Integer anggota_per_tim,
-        @Field("/kompetisi/kategori") String kategori
+        @Field("id_penyelenggara") String id_penyelenggara,
+        @Field("nama_kompetisi") String nama_kompetisi,
+        @Field("pendaftaran_dari") String pendaftaran_dari,
+        @Field("pendaftaran_sampai") String pendaftaran_sampai,
+        @Field("deskripsi") String deskripsi,
+        @Field("tutup_pendaftaran") boolean tutup_pendaftaran,
+        @Field("tingkat") String tingkat,
+        @Field("anggota_per_tim") Integer anggota_per_tim,
+        @Field("kategori") String kategori,
+        @Field("foto") String foto
     );
 
     @GET("/kompetisi/{id}")
@@ -54,17 +56,19 @@ public interface KompetisiService {
         @Path("id") String id
     );
 
+    @FormUrlEncoded
     @PUT("/kompetisi/{id}")
     Single<Response<Resource<Kompetisi>>> changeKompetisiDetails(
         @Path("id") String id,
-        @Field("/kompetisi/nama_kompetisi") String nama_kompetisi,
-        @Field("/kompetisi/pendaftaran_dari") String pendaftaran_dari,
-        @Field("/kompetisi/pendaftaran_sampai") String pendaftaran_sampai,
-        @Field("/kompetisi/deskripsi") String deskripsi,
-        @Field("/kompetisi/tutup_pendaftaran") String tutup_pendaftaran,
-        @Field("/kompetisi/tingkat") String tingkat,
-        @Field("/kompetisi/anggota_per_tim") Integer anggota_per_tim,
-        @Field("/kompetisi/kategori") String kategori
+        @Field("nama_kompetisi") String nama_kompetisi,
+        @Field("pendaftaran_dari") String pendaftaran_dari,
+        @Field("pendaftaran_sampai") String pendaftaran_sampai,
+        @Field("deskripsi") String deskripsi,
+        @Field("tutup_pendaftaran") boolean tutup_pendaftaran,
+        @Field("tingkat") String tingkat,
+        @Field("anggota_per_tim") Integer anggota_per_tim,
+        @Field("kategori") String kategori,
+        @Field("foto") String foto
     );
 
     @GET("/kompetisi/{id}/list-pendaftaran")
@@ -72,6 +76,7 @@ public interface KompetisiService {
         @Path("id") String id
     );
 
+    @FormUrlEncoded
     @POST("/kompetisi/{id}/list-pendaftaran/")
     Single<Response<Resource<Kompetisi>>> createPendaftaran(
         @Path("id") String id,
@@ -85,6 +90,7 @@ public interface KompetisiService {
         @Path("id_pendaftaran") String id_pendaftaran
     );
 
+    @FormUrlEncoded
     @POST("/kompetisi/{id}/list-pendaftaran/{id_pendaftaran}")
     Single<Response<Resource<Kompetisi>>> changePendaftaranDetails(
         @Path("id") String id,
