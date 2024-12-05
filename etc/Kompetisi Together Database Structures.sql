@@ -1,26 +1,26 @@
-create type tingkat as enum (
-    'SMA',
-    'UNIVERSITAS',
-    'ALL'
-);
+-- create type tingkat as enum (
+--     'SMA',
+--     'UNIVERSITAS',
+--     'ALL'
+-- );
 
-create type kategori as enum (
-    'GAME',
-    'ESAI',
-    'UI/UX',
-    'DEBAT',
-    'ROBOTIK',
-    'SOFTWARE',
-    'KESENIAN',
-    'KARYA ILMIAH',
-    'INTERNET OF THINGS'
-);
+-- create type kategori as enum (
+--     'GAME',
+--     'ESAI',
+--     'UI/UX',
+--     'DEBAT',
+--     'ROBOTIK',
+--     'SOFTWARE',
+--     'KESENIAN',
+--     'KARYA ILMIAH',
+--     'INTERNET OF THINGS'
+-- );
 
-create type status_anggota as enum (
-    'MENUNGGU',
-    'DITOLAK',
-    'DITERIMA'
-);
+-- create type status_anggota as enum (
+--     'MENUNGGU',
+--     'DITOLAK',
+--     'DITERIMA'
+-- );
 
 -- List kompetisi yang ada
 create table kompetisi (
@@ -31,16 +31,16 @@ create table kompetisi (
     nama_kompetisi      varchar(100) not null,
     id_penyelenggara    uuid not null,
 
-    pendaftaran_dari    timestamp not null,
-    pendaftaran_sampai  timestamp not null,
-    deskripsi           varchar(500) not null,
+    pendaftaran_dari    timestamp,
+    pendaftaran_sampai  timestamp,
+    deskripsi           varchar(500),
     tutup_pendaftaran   bool not null
                         default(false),
     
-    tingkat             tingkat not null,
-    anggota_per_tim     int not null,
-    kategori            kategori not null,
-    is_paid_ad          bool not null,
+    tingkat             tingkat,
+    anggota_per_tim     int,
+    kategori            kategori,
+    is_paid_ad          bool,
 
     created_at          timestamp not null default(now()),
     updated_at          timestamp not null default(now()),
@@ -53,13 +53,13 @@ create table penyelenggara (
     id_penyelenggara    uuid unique not null 
                         default(gen_random_uuid()),
     
-    logo                varchar(500) not null,
-    nama                varchar(100) not null,
-    deskripsi           varchar(500) not null,
+    logo                varchar(500),
+    nama                varchar(100) unique not null,
+    deskripsi           varchar(500),
     jumlah_kompetisi    int not null default(0),
     
     email               varchar(100) unique not null,
-    password            varchar(200) not null,
+    password            varchar(100) not null,
     created_at          timestamp not null default(now()),
     updated_at          timestamp not null default(now()),
 
@@ -106,13 +106,13 @@ create table participant (
     id_participant      uuid unique not null 
                         default(gen_random_uuid()),
 
-    nama                varchar(50) not null,
-    angkatan            int not null,
-    tanggal_lahir       date not null,
-    sekolah             varchar(50) not null,
+    nama                varchar(100) not null,
+    angkatan            int,
+    tanggal_lahir       date,
+    sekolah             varchar(100),
 
     email               varchar(100) unique not null,
-    password            varchar(200) not null,
+    password            varchar(32) not null,
     created_at          timestamp not null default(now()),
     updated_at          timestamp not null default(now()),
 
@@ -127,14 +127,14 @@ create table participant (
 -- Gamification
 create table gelar (
     level       int unique not null,
-    judul       varchar(50) not null,
+    judul       varchar(100) not null,
 
     primary key (level)
 );
 
 create table achievements (
     kemenangan      int not null,
-    judul           varchar(50) not null,
+    judul           varchar(100) not null,
 
     primary key (kemenangan)
 );
@@ -182,10 +182,6 @@ alter table participant
     add foreign key (level) references gelar (level);
 alter table participant
     add foreign key (kemenangan) references gelar (level);
-
-ALTER TABLE anggota_kelompok DROP CONSTRAINT anggota_kelompok_id_participant_key;
-from information_schema.table_constraints tc
-where table_schema = 'public' and table_name = 'anggota_kelompok'
 
 -- Insert dummy data into penyelenggara table
 INSERT INTO penyelenggara (logo, nama, deskripsi, email, password)

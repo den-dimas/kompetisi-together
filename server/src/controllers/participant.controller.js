@@ -67,6 +67,17 @@ export const register = async (req, res) => {
   const hashedPassword = await hashPassword(password);
 
   try {
+    const emailAvail = await db.query(
+      `
+      SELECT * FROM participant WHERE email = $1`,
+      [email]
+    );
+
+    if (!!emailAvail.rows[0])
+      return res
+        .status(400)
+        .json(BaseApiResponse(null, "Email already taken!"));
+
     const result = await db.query(
       `
     INSERT INTO participant (email, password, nama, angkatan, tanggal_lahir, sekolah) 

@@ -68,12 +68,16 @@ export const login = async (req, res) => {
 export const register = async (req, res) => {
   const { email, password, logo, nama, deskripsi } = req.body;
 
+  if (!email || !password || !nama)
+    return APIResponse(
+      res,
+      400,
+      null,
+      "Nama or Email or Password cannot be empty!"
+    );
+
   if (nama.length < 3)
     return APIResponse(res, 400, null, "Name must have a minimum length of 3!");
-
-  // prettier-ignore
-  if (deskripsi.length < 8)
-    return APIResponse(res, 400, null, "Description must have a minimum length of 8!");
 
   if (!isValidEmail(email))
     return APIResponse(res, 400, null, "Email not valid!");

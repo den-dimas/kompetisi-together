@@ -67,7 +67,7 @@ app.listen(PORT, async () => {
     /* === Connection information === */
     process.stdout.write("\x1Bc");
     console.log(
-      `=== Welcome to Kompetisi Together ===\n======   Server Development    ======`
+      `=== Welcome to Kompetisi Together ===\n=====    Backend Development    =====`
     );
     console.log(`\nServer\t : \x1b[4m%s\x1b[0m`, `http://localhost:${PORT}`);
     console.log(`Network\t : \x1b[4m%s\x1b[0m`, `http://${ipAddress}:${PORT}`);
