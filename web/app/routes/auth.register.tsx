@@ -1,10 +1,17 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Link, useActionData } from "@remix-run/react";
-import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { redirect } from "@remix-run/node";
+
 import type { ActionFunctionArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+
+import { RegisterForm, registerSchema } from "~/constants/schemas";
+
+import { useToast } from "~/hooks/use-toast";
+
+import { register } from "~/services/auth.server";
+import { cookie } from "~/services/sessions.server";
 
 import {
   Card,
@@ -14,7 +21,6 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
 import {
   Form,
   FormControl,
@@ -24,43 +30,25 @@ import {
   FormMessage,
 } from "~/components/ui/form";
 import { Checkbox } from "~/components/ui/checkbox";
+import { ButtonDark } from "~/components/ui/Button";
 
 import illust from "../../assets/authIllustration.svg";
-
-import { RegisterForm, registerSchema } from "~/constants/schemas";
-import { ButtonDark, ButtonLight } from "~/components/ui/Button";
-
-export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
-
-  const asParticipant = formData.get("asParticipant") === "on";
-  const email = formData.get("email");
-  const password = formData.get("password");
-  const nama = formData.get("nama");
-
-  try {
-    const validatedFields = registerSchema.parse({
-      nama,
-      email,
-      password,
-    });
-
-    return true;
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return JSON.stringify({
-        errors: error.issues.map((issue) => ({ message: issue.message })),
-        status: 400,
-      });
-    }
-    return JSON.stringify({
-      errors: [{ message: "Register failed. Please try again." }],
-      status: 500,
-    });
-  }
-}
+import { PARTICIPANT, PENYELENGGARA } from "~/constants";
 
 export default function AuthRegister() {
+  const { toast } = useToast();
+  const error = useActionData<typeof action>();
+
+  useEffect(() => {
+    if (!!error) {
+      toast({
+        title: typeof error == "string" ? error : error + "",
+        duration: 4000,
+        variant: "destructive",
+      });
+    }
+  }, []);
+
   const [asParticipant, setAsParticipant] = useState(true);
 
   const form = useForm<RegisterForm>({
@@ -88,7 +76,10 @@ export default function AuthRegister() {
       id="login-page"
       className="flex w-screen h-screen items-center justify-between"
     >
-      <div className="w-[50%] h-full flex flex-col items-center justify-between gap-12 py-32 max-lg:hidden">
+      <section
+        id="left-side"
+        className="w-[50%] h-full flex flex-col items-center justify-between gap-12 py-32 max-lg:hidden"
+      >
         <h1 className="text-4xl">
           Find <i>Your</i> <b>Team</b>
         </h1>
@@ -99,13 +90,13 @@ export default function AuthRegister() {
           Compete{" "}
           <span className="bg-dark-purple text-white px-2 pb-1">Together</span>
         </h1>
-      </div>
+      </section>
 
       <section
-        id="login-section"
+        id="register-side"
         className="bg-dark-purple flex-1 h-full flex items-center justify-center"
       >
-        <Card className="text-dark-purple px-8 py-12">
+        <Card className="text-dark-purple px-8 py-4">
           <CardHeader>
             <CardTitle className="text-6xl font-bold tracking-tighter">
               {asParticipant ? "Participant" : "Organizer"}
@@ -135,7 +126,7 @@ export default function AuthRegister() {
                         <Input
                           type="text"
                           placeholder="Agung Hapsah..."
-                          className="border-dark-purple !text-lg h-12"
+                          className="border-dark-purple focus-visible:ring-dark-purple !text-lg h-12"
                           {...field}
                         />
                       </FormControl>
@@ -156,7 +147,7 @@ export default function AuthRegister() {
                         <Input
                           placeholder="m@example.com"
                           {...field}
-                          className="border-dark-purple !text-lg h-12"
+                          className="border-dark-purple focus-visible:ring-dark-purple !text-lg h-12"
                         />
                       </FormControl>
                       <FormMessage />
@@ -176,7 +167,7 @@ export default function AuthRegister() {
                         <Input
                           type="password"
                           placeholder="password123..."
-                          className="border-dark-purple !text-lg h-12"
+                          className="border-dark-purple focus-visible:ring-dark-purple !text-lg h-12"
                           {...field}
                         />
                       </FormControl>
@@ -220,4 +211,46 @@ export default function AuthRegister() {
       </section>
     </div>
   );
+}
+
+export async function action({ request }: ActionFunctionArgs) {
+  const formData = await request.formData();
+
+  const asParticipant = formData.get("asParticipant") === "on";
+  const email = formData.get("email");
+  const password = formData.get("password");
+  const nama = formData.get("nama");
+
+  try {
+    const data = registerSchema.parse({
+      nama,
+      email,
+      password,
+    });
+
+    const { token, error, id } = await register(
+      data.nama,
+      data.email,
+      data.password,
+      asParticipant ? false : true
+    );
+
+    if (!token) {
+      return error;
+    }
+
+    const session = await cookie.getSession(request.headers.get("cookie"));
+
+    session.set("token", token);
+    session.set("role", asParticipant ? PARTICIPANT : PENYELENGGARA);
+    session.set("id", id);
+
+    let headers = new Headers({
+      "Set-Cookie": await cookie.commitSession(session),
+    });
+
+    return redirect("/auth", { headers });
+  } catch (error) {
+    return error;
+  }
 }

@@ -1,48 +1,12 @@
 import axios from "~/services/axios.server";
-import { Authenticator } from "remix-auth";
-import { FormStrategy } from "remix-auth-form";
 
 import { cookie } from "~/services/sessions.server";
-
-import { loginSchema } from "~/constants/schemas";
-import { redirect } from "@remix-run/node";
-
-export const authenticator = new Authenticator<string>();
-
-authenticator.use(
-  new FormStrategy(async ({ form }) => {
-    const email = form.get("email") as string;
-    const password = form.get("password") as string;
-    const asParticipant = form.get("asParticipant") === "on";
-
-    try {
-      const data = loginSchema.parse({
-        email,
-        password,
-        asParticipant,
-      });
-
-      const token = await login(
-        data.email,
-        data.password,
-        !data.asParticipant ? true : false
-      );
-
-      if (!token) return "";
-
-      return token as string;
-    } catch (error) {
-      return "";
-    }
-  }),
-  "login"
-);
 
 export async function login(
   email: string,
   password: string,
   asParticipant: boolean
-): Promise<{ token?: string; error?: any }> {
+): Promise<{ token: string | null; id: string | null; error: any }> {
   try {
     const res = await axios.post(
       asParticipant ? "/participant/login" : "/penyelenggara/login",
@@ -52,11 +16,47 @@ export async function login(
       }
     );
 
-    const { token } = await res.data;
+    const data = await res.data;
 
-    return token;
-  } catch (error) {
-    return null as any;
+    return {
+      token: data.token,
+      id: asParticipant
+        ? data.result.id_participant
+        : data.result.id_penyelenggara,
+      error: null,
+    };
+  } catch (error: any) {
+    return { token: null, id: null, error: error.response.data.res_msg };
+  }
+}
+
+export async function register(
+  nama: string,
+  email: string,
+  password: string,
+  asParticipant: boolean
+): Promise<{ token: string | null; id: string | null; error: any }> {
+  try {
+    const res = await axios.post(
+      asParticipant ? "/participant/register" : "/penyelenggara/register",
+      {
+        nama,
+        email,
+        password,
+      }
+    );
+
+    const data = await res.data;
+
+    return {
+      token: data.token,
+      id: asParticipant
+        ? data.result.id_participant
+        : data.result.id_penyelenggara,
+      error: null,
+    };
+  } catch (error: any) {
+    return { token: null, id: null, error: error.response.data.res_msg };
   }
 }
 
@@ -64,14 +64,10 @@ export async function isLoggedIn(request: Request, getToken?: boolean) {
   const session = await cookie.getSession(request.headers.get("cookie"));
 
   const token = session.get("token");
+  const role = session.get("role");
+  const id = session.get("id");
 
-  if (token) return getToken ? token : null;
+  if (token) return getToken ? { token, id, role } : { role };
 
-  return redirect("/auth/");
-}
-
-export async function LogOut(request: Request) {
-  const session = await cookie.getSession(request.headers.get("cookie"));
-
-  await cookie.destroySession(session);
+  return null;
 }

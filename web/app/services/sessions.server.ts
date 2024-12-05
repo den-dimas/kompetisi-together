@@ -9,7 +9,7 @@ export const cookie = createCookieSessionStorage({
     httpOnly: true,
     maxAge: 60 * 60 * 24 * 7, // 1 Week
     path: "/",
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    sameSite: "none",
+    secure: true,
   },
 });

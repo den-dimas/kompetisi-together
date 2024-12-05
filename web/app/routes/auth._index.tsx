@@ -5,7 +5,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   /* Check if logged in or not */
   const user = await isLoggedIn(request);
 
-  return redirect("/auth/login");
+  if (!user) return redirect("/auth/login");
+  else return redirect("/");
 };
 
 export default function Index() {

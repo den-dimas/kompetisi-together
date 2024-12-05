@@ -23,21 +23,18 @@ const PORT = process.env.PORT;
 /* ===================================== */
 /* ===========  Middlewares  =========== */
 /* ===================================== */
+/* Parsing Cookies */
+app.use(cookieParser());
 /* Allow Cross Origin Request */
 app.use(
   cors({
-    allowedHeaders: [
-      "withCredentials",
-      "Authorization",
-      "authorization",
-      "Set-Cookie",
-    ],
+    credentials: true,
+    origin: "http://localhost:3000",
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 /* All request is JSON based */
 app.use(express.json({ limit: "25mb" }));
-/* Parsing Cookies */
-app.use(cookieParser());
 /* All request is encoded with x-www-form-urlencoded */
 app.use(express.urlencoded({ extended: true }));
 /* Extra protection */

@@ -11,7 +11,7 @@ export default function LandingPage() {
         <img src={illust} className="" />
 
         <div className="relative flex flex-1 flex-col items-end justify-center gap-4">
-          <h1 className="text-6xl font-black">KOMPETISI TOGETHER</h1>
+          <h1 className="text-5xl font-black">KOMPETISI TOGETHER</h1>
 
           <p className="font-medium text-xl text-end">
             <span className="font-black">Discover, host, and dominate</span>{" "}

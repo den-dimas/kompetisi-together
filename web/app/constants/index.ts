@@ -44,3 +44,6 @@ export const landingFeatures = [
     icon: "📊",
   },
 ];
+
+export const PENYELENGGARA = "pen";
+export const PARTICIPANT = "par";

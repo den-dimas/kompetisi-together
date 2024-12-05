@@ -1,11 +1,13 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { navLinks } from "~/constants";
+import { navLinks, PENYELENGGARA } from "~/constants";
 
 import { cn } from "~/lib/utils";
 
-interface navBarArgs {}
+interface navBarArgs {
+  role?: string;
+}
 
-export default function NavBar({}: navBarArgs) {
+export default function NavBar({ role = "" }: navBarArgs) {
   const path = useLocation();
 
   if (path.pathname.includes("auth")) return null;
@@ -38,7 +40,7 @@ export default function NavBar({}: navBarArgs) {
       </ul>
 
       <NavLink
-        to={"/auth"}
+        to={!role ? "/auth" : "/dimas"}
         className={({ isActive, isTransitioning, isPending }) =>
           cn(
             "bg-light-purple font-bold text-2xl px-2 py-1 ml-12 -tracking-wider relative text-center",
@@ -48,7 +50,7 @@ export default function NavBar({}: navBarArgs) {
           )
         }
       >
-        Account
+        {!role ? "Account" : "Profile"}
       </NavLink>
     </nav>
   );

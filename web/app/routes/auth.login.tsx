@@ -1,10 +1,10 @@
-import { Link } from "@remix-run/react";
+import { Link, useActionData } from "@remix-run/react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { FormEvent } from "react";
+import { FormEvent, useEffect } from "react";
 
 import {
   Card,
@@ -27,17 +27,44 @@ import { ButtonDark } from "~/components/ui/Button";
 
 import illust from "../../assets/authIllustration.svg";
 
-import { loginSchema as authSchema, LoginForm } from "~/constants/schemas";
-import { authenticator } from "~/services/auth.server";
+import {
+  loginSchema as authSchema,
+  LoginForm,
+  loginSchema,
+} from "~/constants/schemas";
 import { cookie } from "~/services/sessions.server";
+import { login } from "~/services/auth.server";
+import { useToast } from "~/hooks/use-toast";
+import { Toaster } from "~/components/ui/toaster";
+import { PARTICIPANT, PENYELENGGARA } from "~/constants";
 
 export default function AuthLogin() {
+  const { toast } = useToast();
+  const error = useActionData<typeof action>();
+
+  useEffect(() => {
+    if (!!error) {
+      toast({
+        title: typeof error == "string" ? error : error + "",
+        duration: 4000,
+        variant: "destructive",
+      });
+    }
+  }, []);
+
   const form = useForm<LoginForm>({
     resolver: zodResolver(authSchema),
     defaultValues: {
       email: "",
       password: "",
       asParticipant: false,
+    },
+    mode: "onChange",
+    resetOptions: {
+      keepIsSubmitSuccessful: true,
+      keepIsSubmitted: true,
+      keepIsValid: true,
+      keepDirtyValues: true,
     },
   });
 
@@ -46,7 +73,7 @@ export default function AuthLogin() {
 
     const valid = await form.trigger();
 
-    if (!!valid) {
+    if (valid) {
       (e.target as any).submit();
     }
   }
@@ -99,7 +126,7 @@ export default function AuthLogin() {
                         <Input
                           placeholder="m@example.com"
                           {...field}
-                          className="border-dark-purple !text-lg h-12"
+                          className="focus-visible:ring-dark-purple border-dark-purple !text-lg h-12"
                         />
                       </FormControl>
                       <FormMessage />
@@ -119,7 +146,7 @@ export default function AuthLogin() {
                         <Input
                           type="password"
                           placeholder="password123..."
-                          className="border-dark-purple !text-lg h-12"
+                          className="focus-visible:ring-dark-purple border-dark-purple !text-lg h-12"
                           {...field}
                         />
                       </FormControl>
@@ -164,21 +191,48 @@ export default function AuthLogin() {
           </CardContent>
         </Card>
       </section>
+
+      <Toaster />
     </div>
   );
 }
 
 export async function action({ request }: ActionFunctionArgs) {
-  const res = await authenticator.authenticate("login", request);
+  const form = await request.formData();
 
-  if (!res) return null;
+  const email = form.get("email") as string;
+  const password = form.get("password") as string;
+  const asParticipant = form.get("asParticipant") === "on";
 
-  const session = await cookie.getSession(request.headers.get("cookie"));
+  try {
+    const data = loginSchema.parse({
+      email,
+      password,
+      asParticipant,
+    });
 
-  session.set("session", res);
-  let headers = new Headers({
-    "Set-Cookie": await cookie.commitSession(session),
-  });
+    const { token, error, id } = await login(
+      data.email,
+      data.password,
+      data.asParticipant ? false : true
+    );
 
-  return redirect("/", { headers });
+    if (!token) {
+      return error;
+    }
+
+    const session = await cookie.getSession(request.headers.get("cookie"));
+
+    session.set("token", token);
+    session.set("role", data.asParticipant ? PENYELENGGARA : PARTICIPANT);
+    session.set("id", id);
+
+    let headers = new Headers({
+      "Set-Cookie": await cookie.commitSession(session),
+    });
+
+    return redirect("/auth", { headers });
+  } catch (error) {
+    return error;
+  }
 }

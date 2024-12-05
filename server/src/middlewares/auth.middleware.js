@@ -6,21 +6,13 @@ import { db } from "../config/db.js";
 const jwt = jsonwebtoken;
 
 export const requireAuth = async (req, res, next) => {
-  const header = req.headers.authorization || req.headers.Authorization;
+  const token = req.headers.cookie || req.headers.Cookie;
 
-  if (!header?.startsWith("Bearer "))
-    return res.status(403).json({
-      result: null,
-      message: "You're not authorized!",
-      authorized: false,
-    });
-
-  const token = header.split(" ")[1];
+  console.log(req.cookies);
 
   if (!!token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (!!err) {
-        console.log(err);
         return APIResponse(res, 403, null, "You don't have the authorization!");
       } else {
         return next();
@@ -32,21 +24,11 @@ export const requireAuth = async (req, res, next) => {
 };
 
 export const requirePenyelenggara = async (req, res, next) => {
-  const header = req.headers.authorization || req.headers.Authorization;
-
-  if (!header?.startsWith("Bearer "))
-    return res.status(403).json({
-      result: null,
-      message: "You're not authorized!",
-      authorized: false,
-    });
-
-  const token = header.split(" ")[1];
+  const token = req.headers.cookie || req.headers.Cookie;
 
   if (!!token) {
     jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
       if (!!err) {
-        console.log(err);
         return APIResponse(res, 403, null, "You don't have the authorization!");
       } else {
         const { id_user, role } = decoded;
@@ -69,21 +51,11 @@ export const requirePenyelenggara = async (req, res, next) => {
 };
 
 export const requireParticipant = async (req, res, next) => {
-  const header = req.headers.authorization || req.headers.Authorization;
-
-  if (!header?.startsWith("Bearer "))
-    return res.status(403).json({
-      result: null,
-      message: "You're not authorized!",
-      authorized: false,
-    });
-
-  const token = header.split(" ")[1];
+  const token = req.headers.cookie || req.headers.Cookie;
 
   if (!!token) {
     jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
       if (!!err) {
-        console.log(err);
         return APIResponse(res, 403, null, "You don't have the authorization!");
       } else {
         const { id_user, role } = decoded;
